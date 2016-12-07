@@ -1,0 +1,31 @@
+parameters:
+    yproximite.influx_db_preset.client.client.class: Yproximite\Bundle\InfluxDbPresetBundle\Client\Client
+    yproximite.influx_db_preset.event_listener.extension.abstract.class: Yproximite\Bundle\InfluxDbPresetBundle\EventListener\Extension\AbstractListener
+    yproximite.influx_db_preset.event_listener.influx_db.class: Yproximite\Bundle\InfluxDbPresetBundle\EventListener\InfluxDbListener
+    yproximite.influx_db_preset.point.point_builder_factory.class: Yproximite\Bundle\InfluxDbPresetBundle\Point\PointBuilderFactory
+    yproximite.influx_db_preset.point.point_preset_factory.class: Yproximite\Bundle\InfluxDbPresetBundle\Point\PointPresetFactory
+
+services:
+    yproximite.influx_db_preset.client.client:
+        class: "%yproximite.influx_db_preset.client.client.class%"
+        arguments:
+            - "@event_dispatcher"
+            - "@yproximite.influx_db_preset.point.point_preset_factory"
+            - "@yproximite.influx_db_preset.point.point_builder_factory"
+
+    yproximite.influx_db_preset.event_listener.extension.abstract:
+        abstract: true
+        class: "%yproximite.influx_db_preset.event_listener.extension.abstract.class%"
+        calls:
+            - [setEventDispatcher, ["@event_dispatcher"]]
+
+    yproximite.influx_db_preset.event_listener.influx_db:
+        class: "%yproximite.influx_db_preset.event_listener.influx_db.class%"
+        arguments:
+            - "@yproximite.influx_db_preset.client.client"
+
+    yproximite.influx_db_preset.point.point_builder_factory:
+        class: "%yproximite.influx_db_preset.point.point_builder_factory.class%"
+
+    yproximite.influx_db_preset.point.point_preset_factory:
+        class: "%yproximite.influx_db_preset.point.point_preset_factory.class%"

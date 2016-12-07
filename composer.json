@@ -1,0 +1,16 @@
+{
+  "name": "yproximite/influxdb-preset-bundle",
+  "description": "Presets for InfluxDB points",
+  "type": "symfony-bundle",
+  "license": "MIT",
+  "require": {
+    "php": ">=7.0",
+    "symfony/framework-bundle": "^2.8|^3.0",
+    "algatux/influxdb-bundle": "~2.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Yproximite\\Bundle\\InfluxDbPresetBundle\\": ""
+    }
+  }
+}
