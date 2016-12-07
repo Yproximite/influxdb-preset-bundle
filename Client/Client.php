@@ -4,6 +4,7 @@ namespace Yproximite\Bundle\InfluxDbPresetBundle\Client;
 
 use InfluxDB\Point;
 use InfluxDB\Database;
+use Algatux\InfluxDbBundle\Events\UdpEvent;
 use Algatux\InfluxDbBundle\Events\DeferredUdpEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 

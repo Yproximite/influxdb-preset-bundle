@@ -1,4 +1,3 @@
-
 <?php
 
 namespace Yproximite\Bundle\InfluxDbPresetBundle\EventListener\Extension;

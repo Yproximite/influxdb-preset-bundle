@@ -2,6 +2,7 @@
 
 namespace Yproximite\Bundle\InfluxDbPresetBundle\EventListener\Extension;
 
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 
 /**
