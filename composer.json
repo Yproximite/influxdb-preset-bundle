@@ -1,11 +1,12 @@
 {
   "name": "yproximite/influxdb-preset-bundle",
-  "description": "Presets for InfluxDB points",
+  "description": "InfluxDbPresetBundle: send metrics to InfluxDB server based on Events",
+  "keywords": ["influx", "db", "influxdb", "statistics", "metrics"],
   "type": "symfony-bundle",
   "license": "MIT",
   "require": {
-    "php": ">=7.0",
-    "symfony/framework-bundle": "^2.8|^3.0",
+    "php": "^7.0",
+    "symfony/framework-bundle": "^2.8 || ^3.0",
     "algatux/influxdb-bundle": "~2.1"
   },
   "autoload": {

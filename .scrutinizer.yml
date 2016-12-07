@@ -1,0 +1,13 @@
+filter:
+    excluded_paths:
+        - 'vendor/*'
+        - 'tests/*'
+
+checks:
+    php: true
+
+coding_style:
+    php:
+        spaces:
+            before_keywords:
+                catch: false
