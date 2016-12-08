@@ -22,6 +22,11 @@ abstract class AbstractListener
      */
     protected $eventName;
 
+    /**
+     * @var string
+     */
+    protected $profileName;
+
     public function setEventDispatcher(EventDispatcherInterface $eventDispatcher)
     {
         $this->eventDispatcher = $eventDispatcher;
@@ -32,8 +37,13 @@ abstract class AbstractListener
         $this->eventName = $eventName;
     }
 
+    public function setProfileName(string $profileName)
+    {
+        $this->profileName = $profileName;
+    }
+
     protected function dispatchEvent($value)
     {
-        $this->eventDispatcher->dispatch($this->eventName, new InfluxDbEvent($value));
+        $this->eventDispatcher->dispatch($this->eventName, new InfluxDbEvent($value, $this->profileName));
     }
 }

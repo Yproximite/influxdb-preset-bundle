@@ -46,32 +46,36 @@ class PointBuilder implements PointBuilderInterface
 
     public function build(): Point
     {
-        $measurement = $this->getCompiledMeasurement();
+        $mapCallback = function ($value) {
+            return $this->compileTemplate($value);
+        };
+
+        $measurement = $this->getPreset()->getMeasurement();
         $value       = $this->getValue();
-        $tags        = $this->getPreset()->getTags();
-        $fields      = $this->getPreset()->getFields();
+        $tags        = array_map($mapCallback, $this->getPreset()->getTags());
+        $fields      = array_map($mapCallback, $this->getPreset()->getFields());
         $timestamp   = $this->getTimestamp();
 
         return new Point($measurement, $value, $tags, $fields, $timestamp);
     }
 
-    private function getCompiledMeasurement(): string
+    private function compileTemplate($template): string
     {
-        $measurement = $this->getPreset()->getMeasurement();
+        $template = (string) $template;
 
-        if (preg_match_all('/<([^>]*)>/', $measurement, $matches) > 0) {
-            $params = $this->getMeasurementParams();
+        if (preg_match_all('/<([^>]*)>/', $template, $matches) > 0) {
+            $params = $this->getTemplateParams();
             $keys   = $matches[1];
 
             foreach ($keys as $key) {
-                $measurement = str_replace(sprintf('<%s>', $key), $params[$key], $measurement);
+                $template = str_replace(sprintf('<%s>', $key), $params[$key], $template);
             }
         }
 
-        return $measurement;
+        return $template;
     }
 
-    private function getMeasurementParams(): array
+    private function getTemplateParams(): array
     {
         return [
             'value' => $this->getValue(),

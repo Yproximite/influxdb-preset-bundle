@@ -3,18 +3,16 @@ declare(strict_types=1);
 
 namespace Yproximite\Bundle\InfluxDbPresetBundle\Client;
 
-use Yproximite\Bundle\InfluxDbPresetBundle\Point\PointPresetInterface;
+use Yproximite\Bundle\InfluxDbPresetBundle\Profile\ProfileInterface;
 
 /**
  * Interface ClientInterface
  */
 interface ClientInterface
 {
-    public function addPointPreset(PointPresetInterface $preset);
+    public function addProfile(ProfileInterface $preset): self;
 
-    public function addPointPresetFromConfig(array $config);
+    public function addProfileFromConfig(array $config): self;
 
-    public function sendPoint(string $presetName, float $value);
-
-    public function sendDeferredPoint(string $presetName, float $value);
+    public function sendPoint(string $profileName, string $presetName, float $value);
 }

@@ -15,13 +15,27 @@ final class InfluxDbEvent extends Event
      */
     private $value;
 
-    public function __construct($value)
+    /**
+     * @var string|null
+     */
+    private $profileName;
+
+    public function __construct($value, string $profileName = null)
     {
-        $this->value = (float) $value;
+        $this->value       = (float)$value;
+        $this->profileName = $profileName;
     }
 
     public function getValue(): float
     {
         return $this->value;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getProfileName()
+    {
+        return $this->profileName;
     }
 }

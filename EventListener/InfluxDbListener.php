@@ -16,13 +16,21 @@ final class InfluxDbListener
      */
     private $client;
 
-    public function __construct(Client $client)
+    /**
+     * @var string
+     */
+    private $defaultProfileName;
+
+    public function __construct(Client $client, string $defaultProfileName)
     {
-        $this->client = $client;
+        $this->client             = $client;
+        $this->defaultProfileName = $defaultProfileName;
     }
 
     public function onInfluxDb(InfluxDbEvent $event, $eventName)
     {
-        $this->client->sendDeferredPoint($eventName, $event->getValue());
+        $profileName = $event->getProfileName() ?: $this->defaultProfileName;
+
+        $this->client->sendPoint($profileName, $eventName, $event->getValue());
     }
 }

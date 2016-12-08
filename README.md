@@ -54,28 +54,33 @@ Here is the configuration reference:
 ```yaml
 # app/config/config.yml
 yproximite_influx_db_preset:
-    client: algatux_influx_db.connection.default.http # name of the influxdb-bundle client service you want to use
-    method: DeferredUdpEvent # can be `DeferredUdpEvent`, `DeferredHttpEvent`, `UdpEvent`, `HttpEvent`
-    presets:
-        app.user.created:
-            measurement: users
-            tags: { type: member, action: created, free: yes, foo: bar }
-            fields: { extra_value: true }
-        api.company.created:
-            measurement: api
-            tags: { action: created, object: company }
-        api.company.deleted:
-            measurement: api
-            tags: { action: deleted, object: company }
-        app.memory_usage:
-            measurement: app_memory_usage
-            tags: { metric_type: memory }
-        app.time:
-            measurement: app
-            tags: { metric_type: response_time }
-        app.exception:
-            measurement: app
-            tags: { metric_type: exception, code: "<value>" }
+    default_profile_name: other # by default it's "default"
+    profiles:
+        default:
+            connections:
+                default:
+                    protocol: udp
+                    deferred: true
+            presets:
+                app.user.created:
+                    measurement: users
+                    tags: { type: member, action: created, free: yes, foo: bar }
+                    fields: { extra_value: true }
+                api.company.created:
+                    measurement: api
+                    tags: { action: created, object: company }
+                api.company.deleted:
+                    measurement: api
+                    tags: { action: deleted, object: company }
+                app.memory_usage:
+                    measurement: app_memory_usage
+                    tags: { metric_type: memory }
+                app.time:
+                    measurement: app
+                    tags: { metric_type: response_time }
+                app.exception:
+                    measurement: app
+                    tags: { metric_type: exception, code: "<value>" }
     extensions:
         memory:
             enabled: true
@@ -83,10 +88,11 @@ yproximite_influx_db_preset:
         time:
             enabled: true
             preset_name: app.time
+            profile_name: other # by default it's "default"
         exception:
             enabled: true
             preset_name: app.exception
-            
+
 #influx_db:
 #    host:                 influxdb.example.com 
 #    database:             my_db

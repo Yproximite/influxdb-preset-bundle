@@ -13,6 +13,11 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 class Configuration implements ConfigurationInterface
 {
     /**
+     * @var array
+     */
+    private static $protocols = ['http', 'udp'];
+
+    /**
      * {@inheritdoc}
      */
     public function getConfigTreeBuilder()
@@ -20,10 +25,56 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode    = $treeBuilder->root('yproximite_influx_db_preset');
 
-        $this->addPresetsSection($rootNode);
+        $this->addProfilesSection($rootNode);
         $this->addExtensionsSection($rootNode);
 
         return $treeBuilder;
+    }
+
+    private function addProfilesSection(NodeDefinition $rootNode)
+    {
+        $profiles = $rootNode
+            ->children()
+                ->scalarNode('default_profile_name')->defaultValue('default')->end()
+                ->arrayNode('profiles')
+                    ->useAttributeAsKey('name', false)
+                    ->prototype('array');
+                        $this->addConnectionsSection($profiles);
+                        $this->addPresetsSection($profiles);
+                    $profiles->end()
+                ->end()
+            ->end()
+        ;
+    }
+
+    private function addConnectionsSection(NodeDefinition $rootNode)
+    {
+        $rootNode
+            ->children()
+                ->arrayNode('connections')
+                    ->useAttributeAsKey('name', false)
+                    ->prototype('array')
+                        ->children()
+                            ->scalarNode('protocol')
+                                ->isRequired()
+                                ->validate()
+                                    ->ifTrue(function ($value) {
+                                        return in_array($value, self::$protocols);
+                                    })
+                                    ->thenInvalid(
+                                        sprintf(
+                                            'protocol parameter should be one of following: %s',
+                                            implode(', ', self::$protocols)
+                                        )
+                                    )
+                                ->end()
+                            ->end()
+                            ->booleanNode('deffered')->defaultFalse()->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
     }
 
     private function addPresetsSection(NodeDefinition $rootNode)
@@ -59,18 +110,21 @@ class Configuration implements ConfigurationInterface
                             ->canBeEnabled()
                             ->children()
                                 ->scalarNode('preset_name')->isRequired()->end()
+                                ->scalarNode('profile_name')->end()
                             ->end()
                         ->end()
                         ->arrayNode('memory')
                             ->canBeEnabled()
                             ->children()
                                 ->scalarNode('preset_name')->isRequired()->end()
+                                ->scalarNode('profile_name')->end()
                             ->end()
                         ->end()
                         ->arrayNode('request')
                             ->canBeEnabled()
                             ->children()
                                 ->scalarNode('preset_name')->isRequired()->end()
+                                ->scalarNode('profile_name')->end()
                             ->end()
                         ->end()
                     ->end()
