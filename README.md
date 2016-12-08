@@ -54,7 +54,7 @@ Here is the configuration reference:
 ```yaml
 # app/config/config.yml
 yproximite_influx_db_preset:
-    default_profile_name: other # by default it's "default"
+    default_profile_name: default # by default it's "default"
     profiles:
         default:
             connections:
@@ -75,12 +75,21 @@ yproximite_influx_db_preset:
                 app.memory_usage:
                     measurement: app_memory_usage
                     tags: { metric_type: memory }
-                app.time:
-                    measurement: app
-                    tags: { metric_type: response_time }
                 app.exception:
                     measurement: app
                     tags: { metric_type: exception, code: "<value>" }
+        other:
+            connections:
+                default:
+                    protocol: http
+            presets:
+                app.time:
+                    measurement: app
+                    tags: { metric_type: response_time }
+                app.order.requested:
+                    measurement: orders
+                    tags: { action: requested, delivery: false }
+                    fields: { extra_value: true }
     extensions:
         memory:
             enabled: true
@@ -107,14 +116,14 @@ Usage
 ```php
 use Yproximite\Bundle\InfluxDbPresetBundle\Event\InfluxDbEvent;
 
-public function userCreateAction()
-{
-    $user = new User();
-    ...
-    $this->get('event_dispatcher')->dispatch('app.user.created', new InfluxDbEvent(1));
-    
-    return new Response('User Created');
-}
+// Symfony\Component\EventDispatcher\EventDispatcherInterface
+$eventDispatcher = $this->get('event_dispatcher');
+
+// Preset from default profile
+$eventDispatcher->dispatch('app.user.created', new InfluxDbEvent(1));
+
+// Preset from "other" profile
+$eventDispatcher->dispatch('app.order.requested', new InfluxDbEvent(1, 'other'));
 ```
 
 You can enable `extensions` that will automatically (see configuration example) send the metrics for the memory usage, 
