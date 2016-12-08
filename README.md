@@ -102,12 +102,21 @@ yproximite_influx_db_preset:
             enabled: true
             preset_name: app.exception
 
-#influx_db:
-#    host:                 influxdb.example.com 
-#    database:             my_db
-#    udp:                  false
-#    udp_port:             4444
-#    http_port:            8086    
+# influx_db:
+#     default_connection:   ~
+#     connections:
+#         default:
+#             host:                 influxdb.example.com
+#             database:             my_db
+#             udp:                  true
+#             udp_port:             4444
+#             http_port:            8086
+#         other:
+#             host:                 important.example.com
+#             database:             my_db
+#             udp:                  false
+#             udp_port:             4444
+#             http_port:            8086
 ```
 
 Usage
