@@ -11,6 +11,8 @@ use Algatux\InfluxDbBundle\Events\DeferredUdpEvent;
 use Algatux\InfluxDbBundle\Events\DeferredHttpEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
+use Yproximite\Bundle\InfluxDbPresetBundle\Events;
+use Yproximite\Bundle\InfluxDbPresetBundle\Event\ClientRequestEvent;
 use Yproximite\Bundle\InfluxDbPresetBundle\Exception\LogicException;
 use Yproximite\Bundle\InfluxDbPresetBundle\Point\PointPresetInterface;
 use Yproximite\Bundle\InfluxDbPresetBundle\Profile\ProfilePoolInterface;
@@ -56,6 +58,10 @@ class Client implements ClientInterface
         foreach ($profile->getConnections() as $connection) {
             $this->sendPointUsingConnection($point, $connection);
         }
+
+        $event = new ClientRequestEvent($profileName, $presetName, $value);
+
+        $this->eventDispatcher->dispatch(Events::CLIENT_REQUEST, $event);
     }
 
     private function buildPoint(PointPresetInterface $preset, float $value): Point

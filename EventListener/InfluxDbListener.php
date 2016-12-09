@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Yproximite\Bundle\InfluxDbPresetBundle\EventListener;
 
-use Yproximite\Bundle\InfluxDbPresetBundle\Client\Client;
 use Yproximite\Bundle\InfluxDbPresetBundle\Event\InfluxDbEvent;
+use Yproximite\Bundle\InfluxDbPresetBundle\Client\ClientInterface;
 
 /**
  * Class InfluxDbListener
@@ -12,7 +12,7 @@ use Yproximite\Bundle\InfluxDbPresetBundle\Event\InfluxDbEvent;
 final class InfluxDbListener
 {
     /**
-     * @var Client
+     * @var ClientInterface
      */
     private $client;
 
@@ -21,7 +21,7 @@ final class InfluxDbListener
      */
     private $defaultProfileName;
 
-    public function __construct(Client $client, string $defaultProfileName)
+    public function __construct(ClientInterface $client, string $defaultProfileName)
     {
         $this->client             = $client;
         $this->defaultProfileName = $defaultProfileName;
