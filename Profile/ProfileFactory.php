@@ -39,14 +39,14 @@ class ProfileFactory implements ProfileFactoryInterface
         $profile = $this->create();
         $profile->setName($config['name']);
 
-        foreach ($config['presets'] as $presetConfig) {
-            $preset = $this->pointPresetFactory->createFromConfig($presetConfig);
+        foreach ($config['presets'] as $presetName => $presetConfig) {
+            $preset = $this->pointPresetFactory->createFromConfig($presetConfig + ['name' => $presetName]);
 
             $profile->addPointPreset($preset);
         }
 
-        foreach ($config['connections'] as $connectionConfig) {
-            $connection = $this->connectionFactory->createFromConfig($connectionConfig);
+        foreach ($config['connections'] as $connectionName => $connectionConfig) {
+            $connection = $this->connectionFactory->createFromConfig($connectionConfig + ['name' => $connectionName]);
 
             $profile->addConnection($connection);
         }

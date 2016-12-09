@@ -38,8 +38,8 @@ class YproximiteInfluxDbPresetExtension extends Extension
     {
         $definition = $container->getDefinition('yproximite.influx_db_preset.profile.profile_pool');
 
-        foreach ($config['profiles'] as $profileConfig) {
-            $definition->addMethodCall('addProfileFromConfig', [$profileConfig]);
+        foreach ($config['profiles'] as $profileName => $profileConfig) {
+            $definition->addMethodCall('addProfileFromConfig', [$profileConfig + ['name' => $profileName]]);
         }
     }
 
@@ -49,9 +49,9 @@ class YproximiteInfluxDbPresetExtension extends Extension
         $definition = $container->getDefinition('yproximite.influx_db_preset.event_listener.influx_db');
 
         foreach ($config['profiles'] as $profileConfig) {
-            foreach ($profileConfig['presets'] as $presetConfig) {
-                if (!array_key_exists($presetConfig['name'], $eventNames)) {
-                    $eventNames[] = $presetConfig['name'];
+            foreach ($profileConfig['presets'] as $presetName => $presetConfig) {
+                if (!array_key_exists($presetName, $eventNames)) {
+                    $eventNames[] = $presetName;
                 }
             }
         }

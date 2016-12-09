@@ -38,7 +38,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('default_profile_name')->defaultValue('default')->end()
                 ->arrayNode('profiles')
                     ->requiresAtLeastOneElement()
-                    ->useAttributeAsKey('name', false)
+                    ->useAttributeAsKey('name')
                     ->prototype('array');
                         $this->addConnectionsSection($profiles);
                         $this->addPresetsSection($profiles);
@@ -54,7 +54,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->arrayNode('connections')
                     ->requiresAtLeastOneElement()
-                    ->useAttributeAsKey('name', false)
+                    ->useAttributeAsKey('name')
                     ->prototype('array')
                         ->children()
                             ->scalarNode('protocol')
@@ -84,7 +84,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->arrayNode('presets')
-                    ->useAttributeAsKey('name', false)
+                    ->useAttributeAsKey('name')
                     ->prototype('array')
                         ->children()
                             ->scalarNode('measurement')->isRequired()->end()
@@ -106,7 +106,6 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->arrayNode('extensions')
-                    ->isRequired()
                     ->children()
                         ->arrayNode('exception')
                             ->canBeEnabled()
