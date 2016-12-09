@@ -19,7 +19,7 @@ class ConnectionFactory implements ConnectionFactoryInterface
         $connection
             ->setName($config['name'])
             ->setProtocol($config['protocol'])
-            ->setDeffered($config['deffered'])
+            ->setDeferred($config['deferred'])
         ;
 
         return $connection;

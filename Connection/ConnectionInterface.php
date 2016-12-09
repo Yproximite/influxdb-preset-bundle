@@ -23,7 +23,7 @@ interface ConnectionInterface
 
     public function isHttpProtocol(): bool;
 
-    public function isDeffered(): bool;
+    public function isDeferred(): bool;
 
-    public function setDeffered(bool $deffered): self;
+    public function setDeferred(bool $deferred): self;
 }

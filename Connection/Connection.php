@@ -21,7 +21,7 @@ class Connection implements ConnectionInterface
     /**
      * @var bool
      */
-    private $deffered;
+    private $deferred;
 
     public function getName(): string
     {
@@ -57,14 +57,14 @@ class Connection implements ConnectionInterface
         return $this->getProtocol() === self::PROTOCOL_HTTP;
     }
 
-    public function isDeffered(): bool
+    public function isDeferred(): bool
     {
-        return $this->deffered;
+        return $this->deferred;
     }
 
-    public function setDeffered(bool $deffered): self
+    public function setDeferred(bool $deferred): self
     {
-        $this->deffered = $deffered;
+        $this->deferred = $deferred;
 
         return $this;
     }

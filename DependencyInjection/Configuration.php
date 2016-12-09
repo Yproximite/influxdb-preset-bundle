@@ -71,7 +71,7 @@ class Configuration implements ConfigurationInterface
                                     )
                                 ->end()
                             ->end()
-                            ->booleanNode('deffered')->defaultFalse()->end()
+                            ->booleanNode('deferred')->defaultFalse()->end()
                         ->end()
                     ->end()
                 ->end()

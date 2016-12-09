@@ -86,13 +86,13 @@ class Client implements ClientInterface
     private function getEventClassName(ConnectionInterface $connection): string
     {
         switch (true) {
-            case ($connection->isHttpProtocol() && !$connection->isDeffered()):
+            case ($connection->isHttpProtocol() && !$connection->isDeferred()):
                 return HttpEvent::class;
-            case ($connection->isHttpProtocol() && $connection->isDeffered()):
+            case ($connection->isHttpProtocol() && $connection->isDeferred()):
                 return DeferredHttpEvent::class;
-            case ($connection->isUdpProtocol() && !$connection->isDeffered()):
+            case ($connection->isUdpProtocol() && !$connection->isDeferred()):
                 return UdpEvent::class;
-            case ($connection->isUdpProtocol() && $connection->isDeffered()):
+            case ($connection->isUdpProtocol() && $connection->isDeferred()):
                 return DeferredUdpEvent::class;
             default:
                 throw new LogicException('Could not determine the event class name.');
