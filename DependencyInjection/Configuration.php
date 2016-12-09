@@ -37,6 +37,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->scalarNode('default_profile_name')->defaultValue('default')->end()
                 ->arrayNode('profiles')
+                    ->requiresAtLeastOneElement()
                     ->useAttributeAsKey('name', false)
                     ->prototype('array');
                         $this->addConnectionsSection($profiles);
@@ -52,6 +53,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->arrayNode('connections')
+                    ->requiresAtLeastOneElement()
                     ->useAttributeAsKey('name', false)
                     ->prototype('array')
                         ->children()
