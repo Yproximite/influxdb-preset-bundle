@@ -61,7 +61,7 @@ class Configuration implements ConfigurationInterface
                                 ->isRequired()
                                 ->validate()
                                     ->ifTrue(function ($value) {
-                                        return in_array($value, self::$protocols);
+                                        return !in_array($value, self::$protocols);
                                     })
                                     ->thenInvalid(
                                         sprintf(
