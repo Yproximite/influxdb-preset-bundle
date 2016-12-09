@@ -3,8 +3,11 @@ services:
         class: Yproximite\Bundle\InfluxDbPresetBundle\Client\Client
         arguments:
             - "@event_dispatcher"
-            - "@yproximite.influx_db_preset.point.point_preset_factory"
+            - "@yproximite.influx_db_preset.profile.profile_pool"
             - "@yproximite.influx_db_preset.point.point_builder_factory"
+
+    yproximite.influx_db_preset.connection.connection_factory:
+        class: Yproximite\Bundle\InfluxDbPresetBundle\Connection\ConnectionFactory
 
     yproximite.influx_db_preset.event_listener.extension.abstract:
         abstract: true
@@ -23,3 +26,14 @@ services:
 
     yproximite.influx_db_preset.point.point_preset_factory:
         class: Yproximite\Bundle\InfluxDbPresetBundle\Point\PointPresetFactory
+
+    yproximite.influx_db_preset.profile.profile_factory:
+        class: Yproximite\Bundle\InfluxDbPresetBundle\Profile\ProfileFactory
+        arguments:
+            - "@yproximite.influx_db_preset.point.point_preset_factory"
+            - "@yproximite.influx_db_preset.connection.connection_factory"
+
+    yproximite.influx_db_preset.profile.profile_pool:
+        class: Yproximite\Bundle\InfluxDbPresetBundle\Profile\ProfilePool
+        arguments:
+            - "@yproximite.influx_db_preset.profile.profile_factory"

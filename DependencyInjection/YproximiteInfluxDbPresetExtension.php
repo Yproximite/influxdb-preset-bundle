@@ -36,7 +36,7 @@ class YproximiteInfluxDbPresetExtension extends Extension
 
     private function registerProfiles(array $config, ContainerBuilder $container)
     {
-        $definition = $container->getDefinition('yproximite.influx_db_preset.client.client');
+        $definition = $container->getDefinition('yproximite.influx_db_preset.profile.profile_pool');
 
         foreach ($config['profiles'] as $profileConfig) {
             $definition->addMethodCall('addProfileFromConfig', [$profileConfig]);

@@ -12,11 +12,9 @@ use Algatux\InfluxDbBundle\Events\DeferredHttpEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 use Yproximite\Bundle\InfluxDbPresetBundle\Exception\LogicException;
-use Yproximite\Bundle\InfluxDbPresetBundle\Profile\ProfileInterface;
 use Yproximite\Bundle\InfluxDbPresetBundle\Point\PointPresetInterface;
+use Yproximite\Bundle\InfluxDbPresetBundle\Profile\ProfilePoolInterface;
 use Yproximite\Bundle\InfluxDbPresetBundle\Connection\ConnectionInterface;
-use Yproximite\Bundle\InfluxDbPresetBundle\Profile\ProfileFactoryInterface;
-use Yproximite\Bundle\InfluxDbPresetBundle\Exception\ProfileNotFoundException;
 use Yproximite\Bundle\InfluxDbPresetBundle\Point\PointBuilderFactoryInterface;
 
 /**
@@ -30,64 +28,34 @@ class Client implements ClientInterface
     private $eventDispatcher;
 
     /**
-     * @var ProfileFactoryInterface
+     * @var ProfilePoolInterface
      */
-    private $profileFactory;
+    private $profilePool;
 
     /**
      * @var PointBuilderFactoryInterface
      */
     private $pointBuilderFactory;
 
-    /**
-     * @var ProfileInterface[]
-     */
-    private $profiles = [];
-
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        ProfileFactoryInterface $profileFactory,
+        ProfilePoolInterface $profilePool,
         PointBuilderFactoryInterface $pointBuilderFactory
     ) {
         $this->eventDispatcher     = $eventDispatcher;
-        $this->profileFactory      = $profileFactory;
+        $this->profilePool         = $profilePool;
         $this->pointBuilderFactory = $pointBuilderFactory;
-    }
-
-    public function addProfile(ProfileInterface $profile): ClientInterface
-    {
-        $this->profiles[] = $profile;
-
-        return $this;
-    }
-
-    public function addProfileFromConfig(array $config): ClientInterface
-    {
-        $profile = $this->profileFactory->createFromConfig($config);
-
-        return $this->addProfile($profile);
     }
 
     public function sendPoint(string $profileName, string $presetName, float $value)
     {
-        $profile = $this->getProfileByName($profileName);
+        $profile = $this->profilePool->getProfileByName($profileName);
         $preset  = $profile->getPointPresetByName($presetName);
         $point   = $this->buildPoint($preset, $value);
 
         foreach ($profile->getConnections() as $connection) {
             $this->sendPointUsingConnection($point, $connection);
         }
-    }
-
-    private function getProfileByName(string $profileName): ProfileInterface
-    {
-        foreach ($this->profiles as $profile) {
-            if ($profile->getName() === $profileName) {
-                return $profile;
-            }
-        }
-
-        throw new ProfileNotFoundException(sprintf('Could not find the profile "%s".', $profileName));
     }
 
     private function buildPoint(PointPresetInterface $preset, float $value): Point

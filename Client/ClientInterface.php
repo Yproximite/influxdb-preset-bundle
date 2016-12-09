@@ -10,9 +10,5 @@ use Yproximite\Bundle\InfluxDbPresetBundle\Profile\ProfileInterface;
  */
 interface ClientInterface
 {
-    public function addProfile(ProfileInterface $preset): self;
-
-    public function addProfileFromConfig(array $config): self;
-
     public function sendPoint(string $profileName, string $presetName, float $value);
 }
