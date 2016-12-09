@@ -10,7 +10,6 @@ services:
         class: Yproximite\Bundle\InfluxDbPresetBundle\Connection\ConnectionFactory
 
     yproximite.influx_db_preset.data_collector.influx_db_preset:
-        public: false
         class: Yproximite\Bundle\InfluxDbPresetBundle\DataCollector\InfluxDbPresetDataCollector
         tags:
             - { name: data_collector, template: 'InfluxDbPresetBundle:DataCollector:influxdb_preset', id: yproximite.influxdb_preset }
