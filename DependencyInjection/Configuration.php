@@ -84,7 +84,6 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->arrayNode('presets')
-                    ->defaultValue([])
                     ->useAttributeAsKey('name')
                     ->prototype('array')
                         ->children()
@@ -107,7 +106,6 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->arrayNode('extensions')
-                    ->defaultValue([])
                     ->children()
                         ->arrayNode('exception')
                             ->canBeEnabled()
