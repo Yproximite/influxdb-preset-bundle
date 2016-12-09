@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Yproximite\Bundle\InfluxDbPresetBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
-use Behat\Gherkin\Loader\FileLoaderInterface;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -61,7 +60,7 @@ class YproximiteInfluxDbPresetExtension extends Extension
         }
     }
 
-    private function registerExtensions(array $config, ContainerBuilder $container, FileLoaderInterface $loader)
+    private function registerExtensions(array $config, ContainerBuilder $container, YamlFileLoader $loader)
     {
         foreach ($config['extensions'] as $extensionName => $extension) {
             if ($extension['enabled']) {
