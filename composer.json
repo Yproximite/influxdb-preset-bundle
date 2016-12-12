@@ -13,5 +13,8 @@
     "psr-4": {
       "Yproximite\\Bundle\\InfluxDbPresetBundle\\": ""
     }
+  },
+  "require-dev": {
+    "phpspec/phpspec": "^3.2"
   }
 }
