@@ -9,7 +9,7 @@ namespace Yproximite\Bundle\InfluxDbPresetBundle\Connection;
 interface ConnectionInterface
 {
     const PROTOCOL_UDP = 'udp';
-    const PROTOCOL_HTTP = 'udp';
+    const PROTOCOL_HTTP = 'http';
 
     public function getName(): string;
 
