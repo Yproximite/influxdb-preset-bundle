@@ -33,7 +33,7 @@ class PointPreset implements PointPresetInterface
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(string $name): PointPresetInterface
     {
         $this->name = $name;
     }
@@ -43,7 +43,7 @@ class PointPreset implements PointPresetInterface
         return $this->measurement;
     }
 
-    public function setMeasurement(string $measurement): self
+    public function setMeasurement(string $measurement): PointPresetInterface
     {
         $this->measurement = $measurement;
 
@@ -55,7 +55,7 @@ class PointPreset implements PointPresetInterface
         return $this->tags;
     }
 
-    public function setTags(array $tags): self
+    public function setTags(array $tags): PointPresetInterface
     {
         $this->tags = $tags;
 
@@ -67,7 +67,7 @@ class PointPreset implements PointPresetInterface
         return $this->fields;
     }
 
-    public function setFields(array $fields): self
+    public function setFields(array $fields): PointPresetInterface
     {
         $this->fields = $fields;
 

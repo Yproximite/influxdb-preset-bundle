@@ -25,7 +25,7 @@ class PointBuilder implements PointBuilderInterface
         return $this->preset;
     }
 
-    public function setPreset(PointPresetInterface $preset): self
+    public function setPreset(PointPresetInterface $preset): PointBuilderInterface
     {
         $this->preset = $preset;
 
@@ -37,7 +37,7 @@ class PointBuilder implements PointBuilderInterface
         return $this->value;
     }
 
-    public function setValue(float $value): self
+    public function setValue(float $value): PointBuilderInterface
     {
         $this->value = $value;
 

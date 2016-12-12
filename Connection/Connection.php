@@ -28,7 +28,7 @@ class Connection implements ConnectionInterface
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(string $name): ConnectionInterface
     {
         $this->name = $name;
 
@@ -40,7 +40,7 @@ class Connection implements ConnectionInterface
         return $this->protocol;
     }
 
-    public function setProtocol(string $protocol): self
+    public function setProtocol(string $protocol): ConnectionInterface
     {
         $this->protocol = $protocol;
 
@@ -62,7 +62,7 @@ class Connection implements ConnectionInterface
         return $this->deferred;
     }
 
-    public function setDeferred(bool $deferred): self
+    public function setDeferred(bool $deferred): ConnectionInterface
     {
         $this->deferred = $deferred;
 
