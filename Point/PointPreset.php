@@ -36,6 +36,8 @@ class PointPreset implements PointPresetInterface
     public function setName(string $name): PointPresetInterface
     {
         $this->name = $name;
+
+        return $this;
     }
 
     public function getMeasurement(): string
