@@ -21,19 +21,13 @@ final class InfluxDbPresetDataCollector extends DataCollector
     private $profilePool;
 
     /**
-     * @var string
-     */
-    private $defaultProfileName;
-
-    /**
      * @var ClientRequest[]
      */
     private $requests = [];
 
-    public function __construct(ProfilePoolInterface $profilePool, string $defaultProfileName)
+    public function __construct(ProfilePoolInterface $profilePool)
     {
-        $this->profilePool        = $profilePool;
-        $this->defaultProfileName = $defaultProfileName;
+        $this->profilePool = $profilePool;
     }
 
     public function onClientRequest(ClientRequestEvent $event)

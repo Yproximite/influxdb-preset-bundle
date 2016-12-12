@@ -11,6 +11,8 @@ services:
 
     yproximite.influx_db_preset.data_collector.influx_db_preset:
         class: Yproximite\Bundle\InfluxDbPresetBundle\DataCollector\InfluxDbPresetDataCollector
+        arguments:
+            - "@yproximite.influx_db_preset.profile.profile_pool"
         tags:
             - { name: data_collector, template: 'InfluxDbPresetBundle:DataCollector:influxdb_preset', id: yproximite.influxdb_preset }
             - { name: kernel.event_listener, event: yproximite.bundle.influx_db_preset.client_request, method: onClientRequest }
