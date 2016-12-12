@@ -11,7 +11,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Yproximite\\Bundle\\InfluxDbPresetBundle\\": ""
+      "Yproximite\\Bundle\\InfluxDbPresetBundle\\": "src/"
     }
   },
   "require-dev": {
