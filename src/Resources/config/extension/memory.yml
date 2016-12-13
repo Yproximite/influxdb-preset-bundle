@@ -6,4 +6,4 @@ services:
         parent: yproximite.influx_db_preset.event_listener.extension.abstract
         class: "%yproximite.influx_db_preset.event_listener.extension.memory.class%"
         tags:
-            - { name: kernel.event_listener, event: kernel.terminate, method: onKernelTerminate }
+            - { name: kernel.event_listener, event: kernel.terminate, method: onKernelTerminate, priority: 1 }
