@@ -1,7 +1,7 @@
 InfluxDbPresetBundle
 ====================
 
-[![PHP Version](https://img.shields.io/badge/PHP-%5E7.0-blue.svg)](https://img.shields.io/badge/PHP-%5E7.0-blue.svg)  [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Yproximite/influxdb-preset-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Yproximite/influxdb-preset-bundle/?branch=master) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/30d897e5-749a-4b2e-aa5f-381c61ddebb6/mini.png)](https://insight.sensiolabs.com/projects/30d897e5-749a-4b2e-aa5f-381c61ddebb6)
+[![PHP Version](https://img.shields.io/badge/PHP-%5E7.0-blue.svg)](https://img.shields.io/badge/PHP-%5E7.0-blue.svg) [![Build Status](https://travis-ci.org/Yproximite/influxdb-preset-bundle.svg?branch=master)](https://travis-ci.org/Yproximite/influxdb-preset-bundle) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Yproximite/influxdb-preset-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Yproximite/influxdb-preset-bundle/?branch=master) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/30d897e5-749a-4b2e-aa5f-381c61ddebb6/mini.png)](https://insight.sensiolabs.com/projects/30d897e5-749a-4b2e-aa5f-381c61ddebb6)
 
 InfluxDbPresetBundle: send metrics to InfluxDB server based on `Events` 
 
