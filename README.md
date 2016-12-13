@@ -122,6 +122,8 @@ yproximite_influx_db_preset:
 Usage
 -----
 
+### Sending ###
+
 through events:
 
 ```php
@@ -150,11 +152,42 @@ using the client:
 $client = $this->get('yproximite.influx_db_preset.client.client');
 
 $client->sendPoint(
-    string $profileName = 'app.user.created',
-    string $presetName = 'other',
+    string $profileName = 'other',
+    string $presetName = 'app.user.created',
     float $value = 0.5,
     ?\DateTimeInterface $dateTime = new \DateTime()
 );
+```
+
+### Listening for events ###
+
+you can listen each client request through `ClientRequestEvent`:
+
+```php
+use Yproximite\Bundle\InfluxDbPresetBundle\Event\ClientRequestEvent;
+
+final class MyAppListener
+{
+    public function onClientRequest(ClientRequestEvent $event)
+    {
+        dump(
+            $event->getProfileName(),
+            $event->getPresetName(),
+            $event->getValue(),
+            $event->getDateTime()
+        );
+    }
+}
+```
+
+do not forget to add the following code into `services.yml`:
+
+```yaml
+services:
+    app.event_listener.my_app_listener:
+        class: AppBundle\EventListener\MyAppListener
+        tags:
+            - { name: kernel.event_listener, event: yproximite.bundle.influx_db_preset.client_request, method: onClientRequest }
 ```
 
 You can enable `extensions` that will automatically (see configuration example) send the metrics for the memory usage, 
