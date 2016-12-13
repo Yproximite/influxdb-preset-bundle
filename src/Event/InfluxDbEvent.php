@@ -20,10 +20,16 @@ final class InfluxDbEvent extends Event
      */
     private $profileName;
 
-    public function __construct($value, string $profileName = null)
+    /**
+     * @var \DateTimeInterface|null
+     */
+    private $dateTime;
+
+    public function __construct($value, string $profileName = null, \DateTimeInterface $dateTime = null)
     {
-        $this->value       = (float)$value;
+        $this->value       = (float) $value;
         $this->profileName = $profileName;
+        $this->dateTime    = $dateTime;
     }
 
     public function getValue(): float
@@ -37,5 +43,13 @@ final class InfluxDbEvent extends Event
     public function getProfileName()
     {
         return $this->profileName;
+    }
+
+    /**
+     * @return \DateTimeInterface|null
+     */
+    public function getDateTime()
+    {
+        return $this->dateTime;
     }
 }

@@ -31,6 +31,6 @@ final class InfluxDbListener
     {
         $profileName = $event->getProfileName() ?: $this->defaultProfileName;
 
-        $this->client->sendPoint($profileName, $eventName, $event->getValue());
+        $this->client->sendPoint($profileName, $eventName, $event->getValue(), $event->getDateTime());
     }
 }
