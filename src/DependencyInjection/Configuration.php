@@ -121,7 +121,7 @@ class Configuration implements ConfigurationInterface
                                 ->scalarNode('profile_name')->end()
                             ->end()
                         ->end()
-                        ->arrayNode('request')
+                        ->arrayNode('response_time')
                             ->canBeEnabled()
                             ->children()
                                 ->scalarNode('preset_name')->isRequired()->end()

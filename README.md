@@ -83,7 +83,7 @@ yproximite_influx_db_preset:
                 default:
                     protocol: http
             presets:
-                app.time:
+                app.response_time:
                     measurement: app
                     tags: { metric_type: response_time }
                 app.order.requested:
@@ -94,9 +94,9 @@ yproximite_influx_db_preset:
         memory:
             enabled: true
             preset_name: app.memory_usage
-        time:
+        response_time:
             enabled: true
-            preset_name: app.time
+            preset_name: app.response_time
             profile_name: other # by default it's "default"
         exception:
             enabled: true

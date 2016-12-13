@@ -6,9 +6,9 @@ namespace Yproximite\Bundle\InfluxDbPresetBundle\EventListener\Extension;
 use Symfony\Component\HttpKernel\Event\PostResponseEvent;
 
 /**
- * Class RequestTimeListener
+ * Class ResponseTimeListener
  */
-final class RequestTimeListener extends AbstractListener
+final class ResponseTimeListener extends AbstractListener
 {
     public function onKernelTerminate(PostResponseEvent $event)
     {

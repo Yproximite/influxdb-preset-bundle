@@ -14,7 +14,7 @@ services:
         arguments:
             - "@yproximite.influx_db_preset.profile.profile_pool"
         tags:
-            - { name: data_collector, template: 'InfluxDbPresetBundle:DataCollector:influxdb_preset', id: yproximite.influxdb_preset }
+            - { name: data_collector, template: 'YproximiteInfluxDbPresetBundle:DataCollector:influxdb_preset', id: yproximite.influxdb_preset }
             - { name: kernel.event_listener, event: yproximite.bundle.influx_db_preset.client_request, method: onClientRequest }
 
     yproximite.influx_db_preset.event_listener.extension.abstract:

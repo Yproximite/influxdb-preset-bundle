@@ -1,9 +1,0 @@
-parameters:
-    yproximite.influx_db_preset.event_listener.extension.request.class: Yproximite\Bundle\InfluxDbPresetBundle\EventListener\Extension\RequestListener
-
-services:
-    yproximite.influx_db_preset.event_listener.extension.request:
-        parent: yproximite.influx_db_preset.event_listener.extension.abstract
-        class: "%yproximite.influx_db_preset.event_listener.extension.request.class%"
-        tags:
-            - { name: kernel.event_listener, event: kernel.terminate, method: onKernelTerminate }

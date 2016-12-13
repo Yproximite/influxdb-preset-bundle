@@ -1,0 +1,9 @@
+parameters:
+    yproximite.influx_db_preset.event_listener.extension.response_time.class: Yproximite\Bundle\InfluxDbPresetBundle\EventListener\Extension\ResponseTimeListener
+
+services:
+    yproximite.influx_db_preset.event_listener.extension.response_time:
+        parent: yproximite.influx_db_preset.event_listener.extension.abstract
+        class: "%yproximite.influx_db_preset.event_listener.extension.response_time.class%"
+        tags:
+            - { name: kernel.event_listener, event: kernel.terminate, method: onKernelTerminate }
