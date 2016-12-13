@@ -13,6 +13,8 @@ Since it relies on the great official [influxdb-php](https://github.com/influxda
 Both methods (Udp/Http) can also be deferred, meaning you can send the metrics only when `kernel.terminate` event is fired in order not to slow your application.
 You can read more on the documentation of [influxdb-bundle](https://github.com/Algatux/influxdb-bundle#sending-data-to-influx-db-trough-events)
 
+![profiler_influx](https://cloud.githubusercontent.com/assets/9335422/21149456/d2f74b1c-c15b-11e6-9f89-eb7a2fabb754.png)
+
 This bundle is inspired from [StatsdBundle](https://github.com/M6Web/StatsdBundle)
 
 * [Installation](#installation)
