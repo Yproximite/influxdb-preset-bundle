@@ -12,7 +12,3 @@ verbose=true
 
 # White list of files and directories (optional)
 src/
-
-# Black list of files and directories (optional)
-!spec/
-!vendor/
