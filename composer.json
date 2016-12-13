@@ -4,6 +4,12 @@
   "keywords": ["influx", "db", "influxdb", "statistics", "metrics"],
   "type": "symfony-bundle",
   "license": "MIT",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@github.com:Yproximite/Symfony2-coding-standard"
+    }
+  ],
   "require": {
     "php": "^7.0",
     "symfony/framework-bundle": "^2.8 || ^3.0",
@@ -15,6 +21,11 @@
     }
   },
   "require-dev": {
-    "phpspec/phpspec": "^3.2"
+    "phpspec/phpspec": "^3.2",
+    "m6web/Symfony2-coding-standard": "dev-master",
+    "m6web/coke": "^2.1"
+  },
+  "config": {
+    "bin-dir": "bin"
   }
 }
