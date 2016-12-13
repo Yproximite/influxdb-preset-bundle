@@ -49,27 +49,36 @@ class Client implements ClientInterface
         $this->pointBuilderFactory = $pointBuilderFactory;
     }
 
-    public function sendPoint(string $profileName, string $presetName, float $value)
-    {
+    public function sendPoint(
+        string $profileName,
+        string $presetName,
+        float $value,
+        \DateTimeInterface $dateTime = null
+    ) {
+        if (!$dateTime) {
+            $dateTime = new \DateTime();
+        }
+
         $profile = $this->profilePool->getProfileByName($profileName);
         $preset  = $profile->getPointPresetByName($presetName);
-        $point   = $this->buildPoint($preset, $value);
+        $point   = $this->buildPoint($preset, $value, $dateTime);
 
         foreach ($profile->getConnections() as $connection) {
             $this->sendPointUsingConnection($point, $connection);
         }
 
-        $event = new ClientRequestEvent($profileName, $presetName, $value);
+        $event = new ClientRequestEvent($profileName, $presetName, $value, $dateTime);
 
         $this->eventDispatcher->dispatch(Events::CLIENT_REQUEST, $event);
     }
 
-    private function buildPoint(PointPresetInterface $preset, float $value): Point
+    private function buildPoint(PointPresetInterface $preset, float $value, \DateTimeInterface $dateTime): Point
     {
         $builder = $this->pointBuilderFactory->create();
         $builder
             ->setPreset($preset)
             ->setValue($value)
+            ->setDateTime($dateTime)
         ;
 
         return $builder->build();

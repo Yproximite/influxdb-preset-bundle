@@ -20,6 +20,11 @@ class PointBuilder implements PointBuilderInterface
      */
     private $value;
 
+    /**
+     * @var \DateTimeInterface
+     */
+    private $dateTime;
+
     public function getPreset(): PointPresetInterface
     {
         return $this->preset;
@@ -44,6 +49,18 @@ class PointBuilder implements PointBuilderInterface
         return $this;
     }
 
+    public function getDateTime(): \DateTimeInterface
+    {
+        return $this->dateTime;
+    }
+
+    public function setDateTime(\DateTimeInterface $dateTime): PointBuilderInterface
+    {
+        $this->dateTime = $dateTime;
+
+        return $this;
+    }
+
     public function build(): Point
     {
         $mapCallback = function ($value) {
@@ -54,22 +71,22 @@ class PointBuilder implements PointBuilderInterface
         $value       = $this->getValue();
         $tags        = array_map($mapCallback, $this->getPreset()->getTags());
         $fields      = array_map($mapCallback, $this->getPreset()->getFields());
-        $timestamp   = $this->getTimestamp();
+        $timestamp   = $this->getDateTime()->getTimestamp();
 
         return new Point($measurement, $value, $tags, $fields, $timestamp);
     }
 
-    private function compileTemplate($template): string
+    private function compileTemplate($template)
     {
-        $template = (string) $template;
-
-        if (preg_match_all('/<([^>]*)>/', $template, $matches) > 0) {
+        if (is_string($template) && preg_match_all('/<([^>]*)>/', $template, $matches) > 0) {
             $params = $this->getTemplateParams();
             $keys   = $matches[1];
 
             foreach ($keys as $key) {
                 $template = str_replace(sprintf('<%s>', $key), $params[$key], $template);
             }
+
+            return $template;
         }
 
         return $template;
@@ -80,12 +97,5 @@ class PointBuilder implements PointBuilderInterface
         return [
             'value' => $this->getValue(),
         ];
-    }
-
-    private function getTimestamp(): int
-    {
-        $date = new \DateTime();
-
-        return $date->getTimestamp();
     }
 }

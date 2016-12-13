@@ -18,5 +18,9 @@ interface PointBuilderInterface
 
     public function setValue(float $value): self;
 
+    public function getDateTime(): \DateTimeInterface;
+
+    public function setDateTime(\DateTimeInterface $dateTime): self;
+
     public function build(): Point;
 }

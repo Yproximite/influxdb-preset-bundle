@@ -38,6 +38,7 @@
             <th>Value</th>
             <th>Data</th>
             <th>Connections</th>
+            <th>Time</th>
         </tr>
         {% for request in collector.requests %}
             <tr>
@@ -46,6 +47,7 @@
                 <td>{{ request.value }}</td>
                 <td>{{ request.preset.measurement }}</td>
                 <td>{{ request.profile.connections[0].name }}</td>
+                <td>{{ request.dateTime|date('m/d/Y H:i:s') }}</td>
             </tr>
         {% endfor %}
     </table>

@@ -10,5 +10,10 @@ use Yproximite\Bundle\InfluxDbPresetBundle\Profile\ProfileInterface;
  */
 interface ClientInterface
 {
-    public function sendPoint(string $profileName, string $presetName, float $value);
+    public function sendPoint(
+        string $profileName,
+        string $presetName,
+        float $value,
+        \DateTimeInterface $dateTime = null
+    );
 }

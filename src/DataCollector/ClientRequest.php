@@ -26,11 +26,21 @@ class ClientRequest
      */
     private $value;
 
-    public function __construct(ProfileInterface $profile, PointPresetInterface $pointPreset, float $value)
-    {
+    /**
+     * @var \DateTimeInterface
+     */
+    private $dateTime;
+
+    public function __construct(
+        ProfileInterface $profile,
+        PointPresetInterface $pointPreset,
+        float $value,
+        \DateTimeInterface $dateTime
+    ) {
         $this->profile     = $profile;
         $this->pointPreset = $pointPreset;
         $this->value       = $value;
+        $this->dateTime    = $dateTime;
     }
 
     public function getProfile(): ProfileInterface
@@ -46,5 +56,10 @@ class ClientRequest
     public function getValue(): float
     {
         return $this->value;
+    }
+
+    public function getDateTime(): \DateTimeInterface
+    {
+        return $this->dateTime;
     }
 }

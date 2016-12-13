@@ -25,11 +25,17 @@ final class ClientRequestEvent extends Event
      */
     private $value;
 
-    public function __construct(string $profileName, string $presetName, float $value)
+    /**
+     * @var \DateTimeInterface
+     */
+    private $dateTime;
+
+    public function __construct(string $profileName, string $presetName, float $value, \DateTimeInterface $dateTime)
     {
         $this->profileName = $profileName;
         $this->presetName  = $presetName;
         $this->value       = $value;
+        $this->dateTime    = $dateTime;
     }
 
     public function getProfileName(): string
@@ -45,5 +51,10 @@ final class ClientRequestEvent extends Event
     public function getValue(): float
     {
         return $this->value;
+    }
+
+    public function getDateTime(): \DateTimeInterface
+    {
+        return $this->dateTime;
     }
 }

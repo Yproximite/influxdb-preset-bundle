@@ -35,7 +35,7 @@ final class InfluxDbPresetDataCollector extends DataCollector
         $profile = $this->profilePool->getProfileByName($event->getProfileName());
         $preset  = $profile->getPointPresetByName($event->getPresetName());
 
-        $this->requests[] = new ClientRequest($profile, $preset, $event->getValue());
+        $this->requests[] = new ClientRequest($profile, $preset, $event->getValue(), $event->getDateTime());
     }
 
     public function collect(Request $request, Response $response, \Exception $exception = null)
