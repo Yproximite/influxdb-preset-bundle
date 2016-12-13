@@ -122,6 +122,8 @@ yproximite_influx_db_preset:
 Usage
 -----
 
+through events:
+
 ```php
 use Yproximite\Bundle\InfluxDbPresetBundle\Event\InfluxDbEvent;
 
@@ -131,8 +133,28 @@ $eventDispatcher = $this->get('event_dispatcher');
 // Preset from default profile
 $eventDispatcher->dispatch('app.user.created', new InfluxDbEvent(1));
 
-// Preset from "other" profile
-$eventDispatcher->dispatch('app.order.requested', new InfluxDbEvent(1, 'other'));
+// Advanced event parameters
+$event = new InfluxDbEvent(
+    $value = 1, // will be converted to float
+    string $profileName = 'other',
+    ?\DateTimeInterface $dateTime = new \DateTime()
+);
+
+$eventDispatcher->dispatch('app.order.requested', $event);
+```
+
+using the client:
+
+```php
+// Yproximite\Bundle\InfluxDbPresetBundle\Client\ClientInterface
+$client = $this->get('yproximite.influx_db_preset.client.client');
+
+$client->sendPoint(
+    string $profileName = 'app.user.created',
+    string $presetName = 'other',
+    float $value = 0.5,
+    ?\DateTimeInterface $dateTime = new \DateTime()
+);
 ```
 
 You can enable `extensions` that will automatically (see configuration example) send the metrics for the memory usage, 
