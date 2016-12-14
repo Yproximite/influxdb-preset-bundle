@@ -12,6 +12,10 @@ final class RequestCountListener extends AbstractListener
 {
     public function onKernelTerminate(PostResponseEvent $event)
     {
+        if (!$event->isMasterRequest()) {
+            return;
+        }
+
         $this->dispatchEvent(1);
     }
 }

@@ -12,6 +12,10 @@ final class ResponseTimeListener extends AbstractListener
 {
     public function onKernelTerminate(PostResponseEvent $event)
     {
+        if (!$event->isMasterRequest()) {
+            return;
+        }
+
         $request   = $event->getRequest();
         $startTime = $request->server->get('REQUEST_TIME_FLOAT', $request->server->get('REQUEST_TIME'));
         $time      = microtime(true) - $startTime;
