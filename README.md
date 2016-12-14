@@ -80,6 +80,9 @@ yproximite_influx_db_preset:
                 app.exception:
                     measurement: app
                     tags: { metric_type: exception, code: "<value>" }
+                app.page_views:
+                    measurement: app
+                    tags: { metric_type: page_views }
         other:
             connections:
                 default:
@@ -103,6 +106,9 @@ yproximite_influx_db_preset:
         exception:
             enabled: true
             preset_name: app.exception
+        request_count:
+            enabled: true
+            preset_name: app.page_views
 
 # influx_db:
 #     default_connection:   ~
@@ -193,4 +199,4 @@ services:
 ```
 
 You can enable `extensions` that will automatically (see configuration example) send the metrics for the memory usage, 
-how much time the `Request/Response` cycle last, and the status code of errors
+how much time the `Request/Response` cycle last, the status code of errors and the quantity of page views.

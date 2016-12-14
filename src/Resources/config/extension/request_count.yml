@@ -1,0 +1,6 @@
+services:
+    yproximite.influx_db_preset.event_listener.extension.request_count:
+        parent: yproximite.influx_db_preset.event_listener.extension.abstract
+        class: Yproximite\Bundle\InfluxDbPresetBundle\EventListener\Extension\RequestCountListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.terminate, method: onKernelTerminate, priority: 1 }
