@@ -5,5 +5,6 @@ services:
     yproximite.influx_db_preset.event_listener.extension.exception:
         parent: yproximite.influx_db_preset.event_listener.extension.abstract
         class: "%yproximite.influx_db_preset.event_listener.extension.exception.class%"
+        public: true
         tags:
             - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
