@@ -1,6 +1,7 @@
 services:
     yproximite.influx_db_preset.client.client:
         class: Yproximite\Bundle\InfluxDbPresetBundle\Client\Client
+        public: true
         arguments:
             - "@event_dispatcher"
             - "@yproximite.influx_db_preset.profile.profile_pool"
@@ -8,9 +9,11 @@ services:
 
     yproximite.influx_db_preset.connection.connection_factory:
         class: Yproximite\Bundle\InfluxDbPresetBundle\Connection\ConnectionFactory
+        public: true
 
     yproximite.influx_db_preset.data_collector.influx_db_preset:
         class: Yproximite\Bundle\InfluxDbPresetBundle\DataCollector\InfluxDbPresetDataCollector
+        public: true
         arguments:
             - "@yproximite.influx_db_preset.profile.profile_pool"
         tags:
@@ -20,28 +23,34 @@ services:
     yproximite.influx_db_preset.event_listener.extension.abstract:
         abstract: true
         class: Yproximite\Bundle\InfluxDbPresetBundle\EventListener\Extension\AbstractListener
+        public: true
         calls:
             - [setEventDispatcher, ["@event_dispatcher"]]
 
     yproximite.influx_db_preset.event_listener.influx_db:
         class: Yproximite\Bundle\InfluxDbPresetBundle\EventListener\InfluxDbListener
+        public: true
         arguments:
             - "@yproximite.influx_db_preset.client.client"
             - "%yproximite.influx_db_preset.default_profile_name%"
 
     yproximite.influx_db_preset.point.point_builder_factory:
         class: Yproximite\Bundle\InfluxDbPresetBundle\Point\PointBuilderFactory
+        public: true
 
     yproximite.influx_db_preset.point.point_preset_factory:
         class: Yproximite\Bundle\InfluxDbPresetBundle\Point\PointPresetFactory
+        public: true
 
     yproximite.influx_db_preset.profile.profile_factory:
         class: Yproximite\Bundle\InfluxDbPresetBundle\Profile\ProfileFactory
+        public: true
         arguments:
             - "@yproximite.influx_db_preset.point.point_preset_factory"
             - "@yproximite.influx_db_preset.connection.connection_factory"
 
     yproximite.influx_db_preset.profile.profile_pool:
         class: Yproximite\Bundle\InfluxDbPresetBundle\Profile\ProfilePool
+        public: true
         arguments:
             - "@yproximite.influx_db_preset.profile.profile_factory"
