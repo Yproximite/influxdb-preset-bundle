@@ -10,7 +10,6 @@ use Algatux\InfluxDbBundle\Events\HttpEvent;
 use Algatux\InfluxDbBundle\Events\DeferredUdpEvent;
 use Algatux\InfluxDbBundle\Events\DeferredHttpEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-
 use Yproximite\Bundle\InfluxDbPresetBundle\Events;
 use Yproximite\Bundle\InfluxDbPresetBundle\Event\ClientRequestEvent;
 use Yproximite\Bundle\InfluxDbPresetBundle\Exception\LogicException;

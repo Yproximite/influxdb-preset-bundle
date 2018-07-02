@@ -6,7 +6,6 @@ namespace Yproximite\Bundle\InfluxDbPresetBundle\DataCollector;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
-
 use Yproximite\Bundle\InfluxDbPresetBundle\Event\ClientRequestEvent;
 use Yproximite\Bundle\InfluxDbPresetBundle\Profile\ProfilePoolInterface;
 
@@ -43,6 +42,14 @@ final class InfluxDbPresetDataCollector extends DataCollector
         $this->data = [
             'requests' => $this->requests,
         ];
+    }
+
+    /**
+     * Resets this data collector to its initial state.
+     */
+    public function reset()
+    {
+        $this->data = [];
     }
 
     /**

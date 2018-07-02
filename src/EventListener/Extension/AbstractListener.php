@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Yproximite\Bundle\InfluxDbPresetBundle\EventListener\Extension;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-
 use Yproximite\Bundle\InfluxDbPresetBundle\Event\InfluxDbEvent;
 
 /**
