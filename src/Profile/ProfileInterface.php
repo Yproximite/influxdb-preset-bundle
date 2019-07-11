@@ -19,6 +19,8 @@ interface ProfileInterface
 
     public function getPointPresetByName(string $presetName): PointPresetInterface;
 
+    public function getPointPresets(): array;
+
     public function addConnection(ConnectionInterface $connection): self;
 
     /**

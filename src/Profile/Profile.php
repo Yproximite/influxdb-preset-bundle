@@ -57,6 +57,11 @@ class Profile implements ProfileInterface
         throw new PresetNotFoundException(sprintf('Could not find the preset "%s".', $presetName));
     }
 
+    public function getPointPresets(): array
+    {
+        return $this->pointPresets;
+    }
+
     public function addConnection(ConnectionInterface $connection): ProfileInterface
     {
         $this->connections[] = $connection;
