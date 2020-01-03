@@ -4,15 +4,9 @@
   "keywords": ["influx", "db", "influxdb", "statistics", "metrics"],
   "type": "symfony-bundle",
   "license": "MIT",
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "git@github.com:Yproximite/Symfony2-coding-standard"
-    }
-  ],
   "require": {
-    "php": "^7.0",
-    "symfony/framework-bundle": "^3.0|^4.0",
+    "php": "^7.1",
+    "symfony/framework-bundle": "^4.0|^5.0",
     "algatux/influxdb-bundle": "~2.1"
   },
   "autoload": {
