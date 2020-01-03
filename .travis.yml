@@ -3,7 +3,6 @@ sudo: false
 
 matrix:
     include:
-        - php: 7.0
         - php: 7.1
         - php: 7.2
 
@@ -21,5 +20,5 @@ cache:
         - ~/.composer/cache/files
 
 script:
-    - bin/coke
+    - bin/php-cs-fixer fix --verbose --diff --dry-run src/
     - bin/phpspec run -f dot -n
