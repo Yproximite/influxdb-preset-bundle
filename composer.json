@@ -22,8 +22,7 @@
   },
   "require-dev": {
     "phpspec/phpspec": "^3.2",
-    "m6web/Symfony2-coding-standard": "dev-master",
-    "m6web/coke": "^2.1"
+    "friendsofphp/php-cs-fixer": "^2.16"
   },
   "config": {
     "bin-dir": "bin"
