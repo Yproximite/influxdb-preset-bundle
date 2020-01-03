@@ -1,10 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Yproximite\Bundle\InfluxDbPresetBundle\EventListener;
 
-use Yproximite\Bundle\InfluxDbPresetBundle\Event\InfluxDbEvent;
 use Yproximite\Bundle\InfluxDbPresetBundle\Client\ClientInterface;
+use Yproximite\Bundle\InfluxDbPresetBundle\Event\InfluxDbEvent;
 
 /**
  * Class InfluxDbListener

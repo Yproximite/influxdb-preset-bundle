@@ -1,10 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Yproximite\Bundle\InfluxDbPresetBundle\EventListener\Extension;
 
-use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 /**
  * Class ExceptionListener

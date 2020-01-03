@@ -1,20 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Yproximite\Bundle\InfluxDbPresetBundle\Point;
 
 use PhpSpec\ObjectBehavior;
-
-use Yproximite\Bundle\InfluxDbPresetBundle\Point\PointPreset;
 use Yproximite\Bundle\InfluxDbPresetBundle\Point\PointBuilder;
+use Yproximite\Bundle\InfluxDbPresetBundle\Point\PointPreset;
 
 class PointBuilderSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(PointBuilder::class);
     }
 
-    function it_should_build_simple_point()
+    public function it_should_build_simple_point()
     {
         $pointPreset = new PointPreset();
         $pointPreset->setMeasurement('apples');
@@ -28,7 +29,7 @@ class PointBuilderSpec extends ObjectBehavior
         $this->build()->__toString()->shouldBeEqualTo(sprintf('apples value=5 %d', $dateTime->getTimestamp()));
     }
 
-    function it_should_build_advanced_point()
+    public function it_should_build_advanced_point()
     {
         $pointPreset = new PointPreset();
         $pointPreset

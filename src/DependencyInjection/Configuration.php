@@ -1,10 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Yproximite\Bundle\InfluxDbPresetBundle\DependencyInjection;
 
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
