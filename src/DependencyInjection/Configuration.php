@@ -41,9 +41,11 @@ class Configuration implements ConfigurationInterface
                     ->requiresAtLeastOneElement()
                     ->useAttributeAsKey('name')
                     ->prototype('array');
-                        $this->addConnectionsSection($profiles);
-                        $this->addPresetsSection($profiles);
-                    $profiles->end()
+
+        $this->addConnectionsSection($profiles);
+        $this->addPresetsSection($profiles);
+
+        $profiles->end()
                 ->end()
             ->end()
         ;
