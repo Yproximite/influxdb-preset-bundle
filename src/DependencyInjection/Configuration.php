@@ -22,8 +22,8 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode    = $treeBuilder->root('yproximite_influx_db_preset');
+        $treeBuilder = new TreeBuilder('yproximite_influx_db_preset');
+        $rootNode    = \method_exists($treeBuilder, 'getRootNode') ? $treeBuilder->getRootNode() : $treeBuilder->root('yproximite_influx_db_preset');
 
         $this->addProfilesSection($rootNode);
         $this->addExtensionsSection($rootNode);
