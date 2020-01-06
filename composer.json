@@ -16,7 +16,7 @@
   },
   "require-dev": {
     "phpspec/phpspec": "^6.1",
-    "friendsofphp/php-cs-fixer": "^2.16"
+    "friendsofphp/php-cs-fixer": "^2.16.1"
   },
   "config": {
     "bin-dir": "bin"
