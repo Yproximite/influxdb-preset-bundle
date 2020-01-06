@@ -15,7 +15,7 @@
     }
   },
   "require-dev": {
-    "phpspec/phpspec": "^3.2",
+    "phpspec/phpspec": "^6.1",
     "friendsofphp/php-cs-fixer": "^2.16"
   },
   "config": {
