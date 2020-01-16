@@ -1,34 +1,35 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Yproximite\Bundle\InfluxDbPresetBundle\Client;
 
-use InfluxDB\Point;
-use InfluxDB\Database;
-use PhpSpec\ObjectBehavior;
-use Algatux\InfluxDbBundle\Events\UdpEvent;
-use Algatux\InfluxDbBundle\Events\HttpEvent;
-use Algatux\InfluxDbBundle\Events\DeferredUdpEvent;
 use Algatux\InfluxDbBundle\Events\DeferredHttpEvent;
+use Algatux\InfluxDbBundle\Events\DeferredUdpEvent;
+use Algatux\InfluxDbBundle\Events\HttpEvent;
+use Algatux\InfluxDbBundle\Events\UdpEvent;
+use InfluxDB\Database;
+use InfluxDB\Point;
+use PhpSpec\ObjectBehavior;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-
-use Yproximite\Bundle\InfluxDbPresetBundle\Events;
 use Yproximite\Bundle\InfluxDbPresetBundle\Client\Client;
-use Yproximite\Bundle\InfluxDbPresetBundle\Profile\Profile;
-use Yproximite\Bundle\InfluxDbPresetBundle\Point\PointPreset;
-use Yproximite\Bundle\InfluxDbPresetBundle\Point\PointBuilder;
 use Yproximite\Bundle\InfluxDbPresetBundle\Connection\Connection;
 use Yproximite\Bundle\InfluxDbPresetBundle\Event\ClientRequestEvent;
-use Yproximite\Bundle\InfluxDbPresetBundle\Profile\ProfilePoolInterface;
+use Yproximite\Bundle\InfluxDbPresetBundle\Events;
+use Yproximite\Bundle\InfluxDbPresetBundle\Point\PointBuilder;
 use Yproximite\Bundle\InfluxDbPresetBundle\Point\PointBuilderFactoryInterface;
+use Yproximite\Bundle\InfluxDbPresetBundle\Point\PointPreset;
+use Yproximite\Bundle\InfluxDbPresetBundle\Profile\Profile;
+use Yproximite\Bundle\InfluxDbPresetBundle\Profile\ProfilePoolInterface;
 
 class ClientSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(Client::class);
     }
 
-    function let(
+    public function let(
         EventDispatcherInterface $eventDispatcher,
         ProfilePoolInterface $profilePool,
         PointBuilderFactoryInterface $pointBuilderFactory
@@ -41,7 +42,8 @@ class ClientSpec extends ObjectBehavior
         $this->beConstructedWith($eventDispatcher, $profilePool, $pointBuilderFactory);
     }
 
-    function it_should_send_point_through_each_of_connection_types(EventDispatcherInterface $eventDispatcher) {
+    public function it_should_send_point_through_each_of_connection_types(EventDispatcherInterface $eventDispatcher)
+    {
         $dateTime = new \DateTime();
 
         $this->sendPoint('default', 'apple.dropped', 7., $dateTime);
@@ -62,7 +64,8 @@ class ClientSpec extends ObjectBehavior
         }
     }
 
-    function it_should_dispatch_client_request_event(EventDispatcherInterface $eventDispatcher) {
+    public function it_should_dispatch_client_request_event(EventDispatcherInterface $eventDispatcher)
+    {
         $dateTime = new \DateTime();
 
         $this->sendPoint('default', 'apple.dropped', 7., $dateTime);
@@ -72,7 +75,8 @@ class ClientSpec extends ObjectBehavior
         $eventDispatcher->dispatch(Events::CLIENT_REQUEST, $event)->shouldHaveBeenCalled();
     }
 
-    function it_should_use_other_profiles_separately(EventDispatcherInterface $eventDispatcher) {
+    public function it_should_use_other_profiles_separately(EventDispatcherInterface $eventDispatcher)
+    {
         $dateTime = new \DateTime();
 
         $this->sendPoint('custom', 'apple.dropped', 5., $dateTime);
@@ -105,7 +109,7 @@ class ClientSpec extends ObjectBehavior
         ];
 
         foreach ($connectionConfigs as $connectionConfig) {
-            list ($connectionName, $connectionProtocol, $connectionDeferred) = $connectionConfig;
+            list($connectionName, $connectionProtocol, $connectionDeferred) = $connectionConfig;
 
             $connection = new Connection();
             $connection

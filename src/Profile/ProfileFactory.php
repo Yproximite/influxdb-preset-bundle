@@ -1,10 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Yproximite\Bundle\InfluxDbPresetBundle\Profile;
 
-use Yproximite\Bundle\InfluxDbPresetBundle\Point\PointPresetFactoryInterface;
 use Yproximite\Bundle\InfluxDbPresetBundle\Connection\ConnectionFactoryInterface;
+use Yproximite\Bundle\InfluxDbPresetBundle\Point\PointPresetFactoryInterface;
 
 /**
  * Class ProfileFactory

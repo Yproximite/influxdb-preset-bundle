@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Yproximite\Bundle\InfluxDbPresetBundle\Connection;
@@ -49,12 +50,12 @@ class Connection implements ConnectionInterface
 
     public function isUdpProtocol(): bool
     {
-        return $this->getProtocol() === self::PROTOCOL_UDP;
+        return self::PROTOCOL_UDP === $this->getProtocol();
     }
 
     public function isHttpProtocol(): bool
     {
-        return $this->getProtocol() === self::PROTOCOL_HTTP;
+        return self::PROTOCOL_HTTP === $this->getProtocol();
     }
 
     public function isDeferred(): bool

@@ -1,10 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Yproximite\Bundle\InfluxDbPresetBundle\DependencyInjection;
 
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
@@ -22,8 +23,8 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode    = $treeBuilder->root('yproximite_influx_db_preset');
+        $treeBuilder = new TreeBuilder('yproximite_influx_db_preset');
+        $rootNode    = \method_exists($treeBuilder, 'getRootNode') ? $treeBuilder->getRootNode() : $treeBuilder->root('yproximite_influx_db_preset');
 
         $this->addProfilesSection($rootNode);
         $this->addExtensionsSection($rootNode);
@@ -40,9 +41,11 @@ class Configuration implements ConfigurationInterface
                     ->requiresAtLeastOneElement()
                     ->useAttributeAsKey('name')
                     ->prototype('array');
-                        $this->addConnectionsSection($profiles);
-                        $this->addPresetsSection($profiles);
-                    $profiles->end()
+
+        $this->addConnectionsSection($profiles);
+        $this->addPresetsSection($profiles);
+
+        $profiles->end()
                 ->end()
             ->end()
         ;

@@ -1,22 +1,23 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Yproximite\Bundle\InfluxDbPresetBundle\Client;
 
-use InfluxDB\Point;
-use InfluxDB\Database;
-use Algatux\InfluxDbBundle\Events\UdpEvent;
-use Algatux\InfluxDbBundle\Events\HttpEvent;
-use Algatux\InfluxDbBundle\Events\DeferredUdpEvent;
 use Algatux\InfluxDbBundle\Events\DeferredHttpEvent;
+use Algatux\InfluxDbBundle\Events\DeferredUdpEvent;
+use Algatux\InfluxDbBundle\Events\HttpEvent;
+use Algatux\InfluxDbBundle\Events\UdpEvent;
+use InfluxDB\Database;
+use InfluxDB\Point;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Yproximite\Bundle\InfluxDbPresetBundle\Events;
+use Yproximite\Bundle\InfluxDbPresetBundle\Connection\ConnectionInterface;
 use Yproximite\Bundle\InfluxDbPresetBundle\Event\ClientRequestEvent;
+use Yproximite\Bundle\InfluxDbPresetBundle\Events;
 use Yproximite\Bundle\InfluxDbPresetBundle\Exception\LogicException;
+use Yproximite\Bundle\InfluxDbPresetBundle\Point\PointBuilderFactoryInterface;
 use Yproximite\Bundle\InfluxDbPresetBundle\Point\PointPresetInterface;
 use Yproximite\Bundle\InfluxDbPresetBundle\Profile\ProfilePoolInterface;
-use Yproximite\Bundle\InfluxDbPresetBundle\Connection\ConnectionInterface;
-use Yproximite\Bundle\InfluxDbPresetBundle\Point\PointBuilderFactoryInterface;
 
 /**
  * Class Client
@@ -94,13 +95,13 @@ class Client implements ClientInterface
     private function getEventClassName(ConnectionInterface $connection): string
     {
         switch (true) {
-            case ($connection->isHttpProtocol() && !$connection->isDeferred()):
+            case $connection->isHttpProtocol() && !$connection->isDeferred():
                 return HttpEvent::class;
-            case ($connection->isHttpProtocol() && $connection->isDeferred()):
+            case $connection->isHttpProtocol() && $connection->isDeferred():
                 return DeferredHttpEvent::class;
-            case ($connection->isUdpProtocol() && !$connection->isDeferred()):
+            case $connection->isUdpProtocol() && !$connection->isDeferred():
                 return UdpEvent::class;
-            case ($connection->isUdpProtocol() && $connection->isDeferred()):
+            case $connection->isUdpProtocol() && $connection->isDeferred():
                 return DeferredUdpEvent::class;
             default:
                 throw new LogicException('Could not determine the event class name.');

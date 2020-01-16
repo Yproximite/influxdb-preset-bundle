@@ -7,9 +7,9 @@ namespace Yproximite\Bundle\InfluxDbPresetBundle\DataCollector;
 use Yproximite\Bundle\InfluxDbPresetBundle\Connection\Connection;
 use Yproximite\Bundle\InfluxDbPresetBundle\Connection\ConnectionInterface;
 use Yproximite\Bundle\InfluxDbPresetBundle\Point\PointPreset;
+use Yproximite\Bundle\InfluxDbPresetBundle\Point\PointPresetInterface;
 use Yproximite\Bundle\InfluxDbPresetBundle\Profile\Profile;
 use Yproximite\Bundle\InfluxDbPresetBundle\Profile\ProfileInterface;
-use Yproximite\Bundle\InfluxDbPresetBundle\Point\PointPresetInterface;
 
 /**
  * Class ClientRequest
