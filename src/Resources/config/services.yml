@@ -19,7 +19,7 @@ services:
         tags:
             -
                 name: data_collector
-                template: 'YproximiteInfluxDbPresetBundle:DataCollector:influxdb_preset.html.twig'
+                template: '@YproximiteInfluxDbPreset/DataCollector/influxdb_preset.html.twig'
                 id: yproximite.influxdb_preset
             -
                 name: kernel.event_listener
