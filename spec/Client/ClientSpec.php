@@ -61,16 +61,7 @@ class ClientSpec extends ObjectBehavior
             $eventDispatcher->dispatch($event, constant(sprintf('%s::NAME', $eventClass)))->willReturn($event)->shouldBeCalled();
         }
 
-        $this->sendPoint('default', 'apple.dropped', 7., $dateTime);
-
-    }
-
-    public function it_should_dispatch_client_request_event(EventDispatcherInterface $eventDispatcher)
-    {
-        $dateTime = new \DateTime();
-
         $event = new ClientRequestEvent('default', 'apple.dropped', 7., $dateTime);
-
         $eventDispatcher->dispatch($event, Events::CLIENT_REQUEST)->willReturn($event)->shouldBeCalled();
 
         $this->sendPoint('default', 'apple.dropped', 7., $dateTime);
@@ -81,9 +72,12 @@ class ClientSpec extends ObjectBehavior
         $dateTime = new \DateTime();
 
         $point = new Point('custom_apples', 5., [], [], $dateTime->getTimestamp());
-        $event = new DeferredUdpEvent([$point], Database::PRECISION_SECONDS, 'alpha');
 
+        $event = new DeferredUdpEvent([$point], Database::PRECISION_SECONDS, 'alpha');
         $eventDispatcher->dispatch($event, DeferredUdpEvent::NAME)->willReturn($event)->shouldBeCalled();
+
+        $event = new ClientRequestEvent('custom', 'apple.dropped', 5., $dateTime);
+        $eventDispatcher->dispatch($event, Events::CLIENT_REQUEST)->willReturn($event)->shouldBeCalled();
 
         $this->sendPoint('custom', 'apple.dropped', 5., $dateTime);
     }
