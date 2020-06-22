@@ -4,11 +4,6 @@ declare(strict_types=1);
 
 namespace Yproximite\Bundle\InfluxDbPresetBundle\Event;
 
-use Symfony\Component\EventDispatcher\Event;
-
-/**
- * Class InfluxDbEvent
- */
 final class InfluxDbEvent extends Event
 {
     /**
