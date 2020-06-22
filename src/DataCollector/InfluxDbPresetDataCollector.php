@@ -10,9 +10,6 @@ use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Yproximite\Bundle\InfluxDbPresetBundle\Event\ClientRequestEvent;
 use Yproximite\Bundle\InfluxDbPresetBundle\Profile\ProfilePoolInterface;
 
-/**
- * Class InfluxDbPresetDataCollector
- */
 final class InfluxDbPresetDataCollector extends DataCollector
 {
     /**
@@ -38,7 +35,7 @@ final class InfluxDbPresetDataCollector extends DataCollector
         $this->requests[] = new ClientRequest($profile, $preset, $event->getValue(), $event->getDateTime());
     }
 
-    public function collect(Request $request, Response $response, \Exception $exception = null)
+    public function collect(Request $request, Response $response, \Throwable $exception = null)
     {
         $this->data = [
             'requests' => $this->requests,
