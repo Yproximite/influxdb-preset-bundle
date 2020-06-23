@@ -10,7 +10,7 @@ use Algatux\InfluxDbBundle\Events\HttpEvent;
 use Algatux\InfluxDbBundle\Events\UdpEvent;
 use InfluxDB\Database;
 use InfluxDB\Point;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Yproximite\Bundle\InfluxDbPresetBundle\Connection\ConnectionInterface;
 use Yproximite\Bundle\InfluxDbPresetBundle\Event\ClientRequestEvent;
 use Yproximite\Bundle\InfluxDbPresetBundle\Events;
@@ -68,8 +68,7 @@ class Client implements ClientInterface
         }
 
         $event = new ClientRequestEvent($profileName, $presetName, $value, $dateTime);
-
-        $this->eventDispatcher->dispatch(Events::CLIENT_REQUEST, $event);
+        $this->eventDispatcher->dispatch($event, Events::CLIENT_REQUEST);
     }
 
     private function buildPoint(PointPresetInterface $preset, float $value, \DateTimeInterface $dateTime): Point
@@ -89,7 +88,7 @@ class Client implements ClientInterface
         $class = $this->getEventClassName($connection);
         $event = new $class([$point], Database::PRECISION_SECONDS, $connection->getName());
 
-        $this->eventDispatcher->dispatch(constant(sprintf('%s::NAME', $class)), $event);
+        $this->eventDispatcher->dispatch($event, constant(sprintf('%s::NAME', $class)));
     }
 
     private function getEventClassName(ConnectionInterface $connection): string

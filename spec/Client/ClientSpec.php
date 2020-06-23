@@ -11,7 +11,7 @@ use Algatux\InfluxDbBundle\Events\UdpEvent;
 use InfluxDB\Database;
 use InfluxDB\Point;
 use PhpSpec\ObjectBehavior;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Yproximite\Bundle\InfluxDbPresetBundle\Client\Client;
 use Yproximite\Bundle\InfluxDbPresetBundle\Connection\Connection;
 use Yproximite\Bundle\InfluxDbPresetBundle\Event\ClientRequestEvent;
@@ -46,7 +46,6 @@ class ClientSpec extends ObjectBehavior
     {
         $dateTime = new \DateTime();
 
-        $this->sendPoint('default', 'apple.dropped', 7., $dateTime);
 
         $point = new Point('apples', 7., [], [], $dateTime->getTimestamp());
 
@@ -59,32 +58,28 @@ class ClientSpec extends ObjectBehavior
 
         foreach ($connectionEventClassMap as $connectionName => $eventClass) {
             $event = new $eventClass([$point], Database::PRECISION_SECONDS, $connectionName);
-
-            $eventDispatcher->dispatch(constant(sprintf('%s::NAME', $eventClass)), $event)->shouldHaveBeenCalled();
+            $eventDispatcher->dispatch($event, constant(sprintf('%s::NAME', $eventClass)))->willReturn($event)->shouldBeCalled();
         }
-    }
-
-    public function it_should_dispatch_client_request_event(EventDispatcherInterface $eventDispatcher)
-    {
-        $dateTime = new \DateTime();
-
-        $this->sendPoint('default', 'apple.dropped', 7., $dateTime);
 
         $event = new ClientRequestEvent('default', 'apple.dropped', 7., $dateTime);
+        $eventDispatcher->dispatch($event, Events::CLIENT_REQUEST)->willReturn($event)->shouldBeCalled();
 
-        $eventDispatcher->dispatch(Events::CLIENT_REQUEST, $event)->shouldHaveBeenCalled();
+        $this->sendPoint('default', 'apple.dropped', 7., $dateTime);
     }
 
     public function it_should_use_other_profiles_separately(EventDispatcherInterface $eventDispatcher)
     {
         $dateTime = new \DateTime();
 
-        $this->sendPoint('custom', 'apple.dropped', 5., $dateTime);
-
         $point = new Point('custom_apples', 5., [], [], $dateTime->getTimestamp());
-        $event = new DeferredUdpEvent([$point], Database::PRECISION_SECONDS, 'alpha');
 
-        $eventDispatcher->dispatch(DeferredUdpEvent::NAME, $event)->shouldHaveBeenCalled();
+        $event = new DeferredUdpEvent([$point], Database::PRECISION_SECONDS, 'alpha');
+        $eventDispatcher->dispatch($event, DeferredUdpEvent::NAME)->willReturn($event)->shouldBeCalled();
+
+        $event = new ClientRequestEvent('custom', 'apple.dropped', 5., $dateTime);
+        $eventDispatcher->dispatch($event, Events::CLIENT_REQUEST)->willReturn($event)->shouldBeCalled();
+
+        $this->sendPoint('custom', 'apple.dropped', 5., $dateTime);
     }
 
     private function buildDefaultProfile(): Profile
@@ -109,7 +104,7 @@ class ClientSpec extends ObjectBehavior
         ];
 
         foreach ($connectionConfigs as $connectionConfig) {
-            list($connectionName, $connectionProtocol, $connectionDeferred) = $connectionConfig;
+            [$connectionName, $connectionProtocol, $connectionDeferred] = $connectionConfig;
 
             $connection = new Connection();
             $connection

@@ -6,17 +6,18 @@
   "license": "MIT",
   "require": {
     "php": "^7.3",
-    "symfony/framework-bundle": "^4.0||^5.0",
-    "algatux/influxdb-bundle": "~2.1"
-  },
-  "autoload": {
-    "psr-4": {
-      "Yproximite\\Bundle\\InfluxDbPresetBundle\\": "src/"
-    }
+    "symfony/framework-bundle": "^4.4 || ^5.0",
+    "algatux/influxdb-bundle": "^3.0@beta"
   },
   "require-dev": {
     "phpspec/phpspec": "^6.1",
     "friendsofphp/php-cs-fixer": "^2.16.1"
+  },
+  "minimum-stability": "beta",
+  "autoload": {
+    "psr-4": {
+      "Yproximite\\Bundle\\InfluxDbPresetBundle\\": "src/"
+    }
   },
   "config": {
     "bin-dir": "bin"
