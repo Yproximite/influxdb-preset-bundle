@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Yproximite\Bundle\InfluxDbPresetBundle\EventListener\Extension;
 
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 /**
@@ -12,9 +12,9 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
  */
 final class ExceptionListener extends AbstractListener
 {
-    public function onKernelException(GetResponseForExceptionEvent $event)
+    public function onKernelException(ExceptionEvent $event)
     {
-        $exception = $event->getException();
+        $exception = $event->getThrowable();
 
         if ($exception instanceof HttpExceptionInterface) {
             $code = $event->getException()->getStatusCode();

@@ -44,6 +44,6 @@ abstract class AbstractListener
 
     protected function dispatchEvent($value)
     {
-        $this->eventDispatcher->dispatch($this->eventName, new InfluxDbEvent($value, $this->profileName));
+        $this->eventDispatcher->dispatch(new InfluxDbEvent($value, $this->profileName), $this->eventName);
     }
 }
