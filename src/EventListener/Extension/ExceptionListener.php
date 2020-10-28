@@ -17,7 +17,7 @@ final class ExceptionListener extends AbstractListener
         $exception = $event->getThrowable();
 
         if ($exception instanceof HttpExceptionInterface) {
-            $code = $event->getException()->getStatusCode();
+            $code = $event->getThrowable()->getStatusCode();
         } else {
             $code = 0;
         }
