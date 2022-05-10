@@ -1,0 +1,113 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [ opened, synchronize, reopened, ready_for_review ]
+
+env:
+  TZ: UTC
+
+  COMPOSER_MEMORY_LIMIT: -1
+  PHPUNIT_FLAGS: -v
+  PHP_VERSION_DEFAULT: 8.0
+
+jobs:
+  static_analysis:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        if: ${{ github.event_name != 'pull_request_target' }}
+        uses: actions/checkout@v2
+
+      - name: Checkout PR
+        if: ${{ github.event_name == 'pull_request_target' }}
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@2.11.0
+        with:
+          php-version: ${{ env.PHP_VERSION_DEFAULT }}
+          ini-values: date.timezone=${{ env.TZ }}, memory_limit=-1, session.gc_probability=0, opcache.enable=1, opcache.enable_cli=1, opcache.memory_consumption=256, opcache.max_accelerated_files=20000, opcache.validate_timestamps=0, realpath_cache_size=4096K, realpath_cache_ttl=600
+
+      - run: composer install --prefer-dist --no-interaction --no-progress
+
+      - run: composer phpunit -- install
+
+      - run: composer validate --strict
+
+      - run: composer phpstan
+
+      - run: composer php-cs-fixer@ci
+
+      - run: composer phpcs
+
+  ci:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          # Minimum supported dependencies with the latest and oldest PHP version
+          - PHP_VERSION: 8.0
+            COMPOSER_FLAGS: --prefer-stable --prefer-lowest
+
+          # Test the latest stable release
+          - PHP_VERSION: 8.0
+            COVERAGE: true
+            PHPUNIT_FLAGS: -v --coverage-text
+
+          # Test specific Symfony versions
+          - PHP_VERSION: 8.0
+            SYMFONY_VERSION: 5.4.*
+
+          - PHP_VERSION: 8.1
+            SYMFONY_VERSION: 5.4.*
+
+          - PHP_VERSION: 8.0
+            SYMFONY_VERSION: 6.*
+
+          - PHP_VERSION: 8.1
+            SYMFONY_VERSION: 6.*
+
+    steps:
+      - name: Checkout
+        if: ${{ github.event_name != 'pull_request_target' }}
+        uses: actions/checkout@v2
+
+      - name: Checkout PR
+        if: ${{ github.event_name == 'pull_request_target' }}
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@2.11.0
+        with:
+          php-version: ${{ matrix.config.PHP_VERSION }}
+          coverage: ${{ matrix.config.COVERAGE }}
+          ini-values: date.timezone=${{ env.TZ }}, memory_limit=-1, session.gc_probability=0, opcache.enable=1, opcache.enable_cli=1, opcache.memory_consumption=256, opcache.max_accelerated_files=20000, opcache.validate_timestamps=0, realpath_cache_size=4096K, realpath_cache_ttl=600
+
+      - name: Configure Composer minimum stability
+        if: matrix.config.STABILITY
+        run: composer config minimum-stability ${{ matrix.config.STABILITY }}
+
+      - name: Install globally Symfony Flex
+        run: composer global require --no-progress --no-scripts --no-plugins symfony/flex
+
+      - name: Limit to specific Symfony version
+        if: matrix.config.SYMFONY_VERSION
+        run: echo "SYMFONY_REQUIRE=${{matrix.config.SYMFONY_VERSION}}" >> $GITHUB_ENV
+
+      - name: Install composer dependencies
+        run: composer update ${{ matrix.config.COMPOSER_FLAGS }} --prefer-dist --no-interaction
+
+      - name: Run php-cs-fixer
+        run: php bin/php-cs-fixer fix --verbose --diff --dry-run src
+
+      - name: Run phpspec
+        run: php bin/phpspec run -f dot -n
