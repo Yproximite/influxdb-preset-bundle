@@ -84,7 +84,7 @@ class PointBuilder implements PointBuilderInterface
             $keys   = $matches[1];
 
             foreach ($keys as $key) {
-                $template = str_replace(sprintf('<%s>', $key), $params[$key], $template);
+                $template = str_replace(sprintf('<%s>', $key), (string) $params[$key], $template);
             }
 
             return $template;

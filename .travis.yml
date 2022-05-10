@@ -15,25 +15,24 @@ matrix:
     fast_finish: true
     include:
         # Minimum supported dependencies with the latest and oldest PHP version
-        - php: 7.3
-          env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" SYMFONY_DEPRECATIONS_HELPER="max[self]=0"
-        - php: 7.4
-          env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" SYMFONY_DEPRECATIONS_HELPER="max[self]=0"
         - php: 8.0
+          env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" SYMFONY_DEPRECATIONS_HELPER="max[self]=0"
+        - php: 8.1
           env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" SYMFONY_DEPRECATIONS_HELPER="max[self]=0"
 
         # Test the latest stable release
-        - php: 7.3
-        - php: 7.4
         - php: 8.0
+        - php: 8.1
 
         # Test specific Symfony versions
-        - php: 7.4
-          env: SYMFONY_REQUIRE="4.4.*" # LTS
-        - php: 7.4
-          env: SYMFONY_REQUIRE="5.*" # Last 5.x version
         - php: 8.0
           env: SYMFONY_REQUIRE="5.*" # Last 5.x version
+        - php: 8.0
+          env: SYMFONY_REQUIRE="6.*" # Last 6.x version
+        - php: 8.1
+          env: SYMFONY_REQUIRE="5.*" # Last 5.x version
+        - php: 8.1
+          env: SYMFONY_REQUIRE="6.*" # Last 6.x version
 
         # Latest commit to master
         - php: 8.0
