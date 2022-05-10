@@ -17,7 +17,7 @@
   },
   "require-dev": {
     "phpspec/phpspec": "^7.2",
-    "friendsofphp/php-cs-fixer": "^2.16.1"
+    "friendsofphp/php-cs-fixer": "^3.8"
   },
   "minimum-stability": "beta",
   "autoload": {

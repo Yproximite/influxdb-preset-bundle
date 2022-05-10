@@ -9,5 +9,5 @@ namespace Yproximite\Bundle\InfluxDbPresetBundle;
  */
 final class Events
 {
-    const CLIENT_REQUEST = 'yproximite.bundle.influx_db_preset.client_request';
+    public const CLIENT_REQUEST = 'yproximite.bundle.influx_db_preset.client_request';
 }

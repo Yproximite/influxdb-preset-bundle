@@ -24,7 +24,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder('yproximite_influx_db_preset');
-        $rootNode    = \method_exists($treeBuilder, 'getRootNode') ? $treeBuilder->getRootNode() : $treeBuilder->root('yproximite_influx_db_preset');
+        $rootNode    = method_exists($treeBuilder, 'getRootNode') ? $treeBuilder->getRootNode() : $treeBuilder->root('yproximite_influx_db_preset');
 
         $this->addProfilesSection($rootNode);
         $this->addExtensionsSection($rootNode);
@@ -64,7 +64,7 @@ class Configuration implements ConfigurationInterface
                                 ->isRequired()
                                 ->validate()
                                     ->ifTrue(function ($value) {
-                                        return !in_array($value, self::$protocols);
+                                        return !\in_array($value, self::$protocols);
                                     })
                                     ->thenInvalid(
                                         sprintf(

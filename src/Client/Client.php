@@ -88,7 +88,7 @@ class Client implements ClientInterface
         $class = $this->getEventClassName($connection);
         $event = new $class([$point], Database::PRECISION_SECONDS, $connection->getName());
 
-        $this->eventDispatcher->dispatch($event, constant(sprintf('%s::NAME', $class)));
+        $this->eventDispatcher->dispatch($event, \constant(sprintf('%s::NAME', $class)));
     }
 
     private function getEventClassName(ConnectionInterface $connection): string

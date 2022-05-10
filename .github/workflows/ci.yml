@@ -11,7 +11,6 @@ env:
   TZ: UTC
 
   COMPOSER_MEMORY_LIMIT: -1
-  PHPUNIT_FLAGS: -v
   PHP_VERSION_DEFAULT: 8.0
 
 jobs:
@@ -55,7 +54,6 @@ jobs:
           # Test the latest stable release
           - PHP_VERSION: 8.0
             COVERAGE: true
-            PHPUNIT_FLAGS: -v --coverage-text
 
           # Test specific Symfony versions
           - PHP_VERSION: 8.0
