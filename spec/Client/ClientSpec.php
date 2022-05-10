@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace spec\Yproximite\Bundle\InfluxDbPresetBundle\Client;
 
-use Algatux\InfluxDbBundle\Events\DeferredHttpEvent;
-use Algatux\InfluxDbBundle\Events\DeferredUdpEvent;
-use Algatux\InfluxDbBundle\Events\HttpEvent;
-use Algatux\InfluxDbBundle\Events\UdpEvent;
+use Yproximite\InfluxDbBundle\Events\DeferredHttpEvent;
+use Yproximite\InfluxDbBundle\Events\DeferredUdpEvent;
+use Yproximite\InfluxDbBundle\Events\HttpEvent;
+use Yproximite\InfluxDbBundle\Events\UdpEvent;
 use InfluxDB\Database;
 use InfluxDB\Point;
 use PhpSpec\ObjectBehavior;

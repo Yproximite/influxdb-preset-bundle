@@ -30,7 +30,7 @@ class YproximiteInfluxDbPresetExtension extends Extension
         $this->registerProfiles($config, $container);
         $this->registerEvents($config, $container);
 
-        if (array_key_exists('extensions', $config)) {
+        if (\array_key_exists('extensions', $config)) {
             $this->registerExtensions($config, $container, $loader);
         }
 
@@ -52,9 +52,9 @@ class YproximiteInfluxDbPresetExtension extends Extension
         $definition = $container->getDefinition('yproximite.influx_db_preset.event_listener.influx_db');
 
         foreach ($config['profiles'] as $profileConfig) {
-            if (array_key_exists('presets', $profileConfig)) {
+            if (\array_key_exists('presets', $profileConfig)) {
                 foreach ($profileConfig['presets'] as $presetName => $presetConfig) {
-                    if (!array_key_exists($presetName, $eventNames)) {
+                    if (!\array_key_exists($presetName, $eventNames)) {
                         $eventNames[] = $presetName;
                     }
                 }
@@ -77,7 +77,7 @@ class YproximiteInfluxDbPresetExtension extends Extension
                     $extensionName
                 );
 
-                $profileName = array_key_exists('profile_name', $extension)
+                $profileName = \array_key_exists('profile_name', $extension)
                     ? $extension['profile_name']
                     : $config['default_profile_name']
                 ;

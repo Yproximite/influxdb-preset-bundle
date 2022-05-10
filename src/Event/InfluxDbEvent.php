@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Yproximite\Bundle\InfluxDbPresetBundle\Event;
 
-use Algatux\InfluxDbBundle\Events\SymfonyEvent;
+use Yproximite\InfluxDbBundle\Events\SymfonyEvent;
 
 final class InfluxDbEvent extends SymfonyEvent
 {
