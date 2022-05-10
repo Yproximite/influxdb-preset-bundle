@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace Yproximite\Bundle\InfluxDbPresetBundle\Client;
 
-use Yproximite\InfluxDbBundle\Events\DeferredHttpEvent;
-use Yproximite\InfluxDbBundle\Events\DeferredUdpEvent;
-use Yproximite\InfluxDbBundle\Events\HttpEvent;
-use Yproximite\InfluxDbBundle\Events\UdpEvent;
 use InfluxDB\Database;
 use InfluxDB\Point;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -18,6 +14,10 @@ use Yproximite\Bundle\InfluxDbPresetBundle\Exception\LogicException;
 use Yproximite\Bundle\InfluxDbPresetBundle\Point\PointBuilderFactoryInterface;
 use Yproximite\Bundle\InfluxDbPresetBundle\Point\PointPresetInterface;
 use Yproximite\Bundle\InfluxDbPresetBundle\Profile\ProfilePoolInterface;
+use Yproximite\InfluxDbBundle\Events\DeferredHttpEvent;
+use Yproximite\InfluxDbBundle\Events\DeferredUdpEvent;
+use Yproximite\InfluxDbBundle\Events\HttpEvent;
+use Yproximite\InfluxDbBundle\Events\UdpEvent;
 
 /**
  * Class Client
