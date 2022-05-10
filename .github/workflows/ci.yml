@@ -36,15 +36,11 @@ jobs:
 
       - run: composer install --prefer-dist --no-interaction --no-progress
 
-      - run: composer phpunit -- install
-
       - run: composer validate --strict
 
-      - run: composer phpstan
+      - run: php bin/php-cs-fixer fix --verbose --diff --dry-run src
 
-      - run: composer php-cs-fixer@ci
-
-      - run: composer phpcs
+      - run: php bin/phpspec run -f dot -n
 
   ci:
     runs-on: ubuntu-latest
@@ -105,9 +101,3 @@ jobs:
 
       - name: Install composer dependencies
         run: composer update ${{ matrix.config.COMPOSER_FLAGS }} --prefer-dist --no-interaction
-
-      - name: Run php-cs-fixer
-        run: php bin/php-cs-fixer fix --verbose --diff --dry-run src
-
-      - name: Run phpspec
-        run: php bin/phpspec run -f dot -n
