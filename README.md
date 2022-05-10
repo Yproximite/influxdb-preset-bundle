@@ -1,18 +1,18 @@
 InfluxDbPresetBundle
 ====================
 
-[![PHP Version](https://img.shields.io/badge/PHP-%5E8.0-blue.svg)](https://img.shields.io/badge/PHP-%5E7.0-blue.svg) 
-[![Build Status](https://travis-ci.org/Yproximite/influxdb-preset-bundle.svg?branch=master)](https://travis-ci.org/Yproximite/influxdb-preset-bundle)
+![CI (master)](https://github.com/Yproximite/influxdb-preset-bundle/workflows/CI/badge.svg)
+[![PHP Version](https://img.shields.io/badge/PHP-%5E8.0-blue.svg)](https://img.shields.io/badge/PHP-%5E7.0-blue.svg)
 
 InfluxDbPresetBundle: send metrics to InfluxDB server based on `Events` 
 
-Since it relies on the great official [influxdb-php](https://github.com/influxdata/influxdb-php) library client (via the [Symfony bundle](https://github.com/Algatux/influxdb-bundle)) you can configure the latter to benefit from:
+Since it relies on the great official [influxdb-php](https://github.com/influxdata/influxdb-php) library client (via the [Symfony bundle](https://github.com/Yproximite/influxdb-bundle)) you can configure the latter to benefit from:
 - Send multiple metrics at once (batch sending)
 - Udp Events (sends the metrics using UDP)
 - Http Events (sends the metrics to the InfluxDB API over HTTP)
 
 Both methods (Udp/Http) can also be deferred, meaning you can send the metrics only when `kernel.terminate` event is fired in order not to slow your application.
-You can read more on the documentation of [influxdb-bundle](https://github.com/Algatux/influxdb-bundle#sending-data-to-influx-db-trough-events)
+You can read more on the documentation of [influxdb-bundle](https://github.com/Yproximite/influxdb-bundle#sending-data-to-influx-db-trough-events)
 
 ![profiler_influx](https://cloud.githubusercontent.com/assets/9335422/21149456/d2f74b1c-c15b-11e6-9f89-eb7a2fabb754.png)
 
@@ -42,12 +42,12 @@ public function registerBundles()
     return array(
         // ...
         new Yproximite\Bundle\InfluxDbPresetBundle\YproximiteInfluxDbPresetBundle(),
-        new Algatux\InfluxDbBundle\InfluxDbBundle(),
+        new Yproximite\InfluxDbBundle\InfluxDbBundle(),
     );
 }
 ```
 
-Also, be sure that you followed the [configuration procedure for influxdb-bundle](https://github.com/Algatux/influxdb-bundle) since it uses it to take the pre-configured service to communicate with the InfluxDB server.
+Also, be sure that you followed the [configuration procedure for influxdb-bundle](https://github.com/Yproximite/influxdb-bundle) since it uses it to take the pre-configured service to communicate with the InfluxDB server.
 
 Configuration
 -------------
