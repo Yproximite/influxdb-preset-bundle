@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Yproximite\Bundle\InfluxDbPresetBundle\Connection;
 
-/**
- * Class Connection
- */
 class Connection implements ConnectionInterface
 {
     /**

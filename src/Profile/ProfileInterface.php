@@ -7,9 +7,6 @@ namespace Yproximite\Bundle\InfluxDbPresetBundle\Profile;
 use Yproximite\Bundle\InfluxDbPresetBundle\Connection\ConnectionInterface;
 use Yproximite\Bundle\InfluxDbPresetBundle\Point\PointPresetInterface;
 
-/**
- * Interface ProfileInterface
- */
 interface ProfileInterface
 {
     public function getName(): string;
@@ -20,6 +17,9 @@ interface ProfileInterface
 
     public function getPointPresetByName(string $presetName): PointPresetInterface;
 
+    /**
+     * @return array<mixed>
+     */
     public function getPointPresets(): array;
 
     public function addConnection(ConnectionInterface $connection): self;

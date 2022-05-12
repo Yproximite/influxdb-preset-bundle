@@ -41,6 +41,8 @@ jobs:
 
       - run: php bin/phpspec run -f dot -n
 
+      - run: php bin/phpstan
+
   ci:
     runs-on: ubuntu-latest
     strategy:

@@ -6,14 +6,11 @@ namespace Yproximite\Bundle\InfluxDbPresetBundle\EventListener\Extension;
 
 use Symfony\Component\HttpKernel\Event\TerminateEvent;
 
-/**
- * Class ResponseTimeListener
- */
 final class ResponseTimeListener extends AbstractListener
 {
-    public function onKernelTerminate(TerminateEvent $event)
+    public function onKernelTerminate(TerminateEvent $event): void
     {
-        if (!$event->isMasterRequest()) {
+        if (!$event->isMainRequest()) {
             return;
         }
 

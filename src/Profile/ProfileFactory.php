@@ -7,9 +7,6 @@ namespace Yproximite\Bundle\InfluxDbPresetBundle\Profile;
 use Yproximite\Bundle\InfluxDbPresetBundle\Connection\ConnectionFactoryInterface;
 use Yproximite\Bundle\InfluxDbPresetBundle\Point\PointPresetFactoryInterface;
 
-/**
- * Class ProfileFactory
- */
 class ProfileFactory implements ProfileFactoryInterface
 {
     /**
@@ -41,13 +38,13 @@ class ProfileFactory implements ProfileFactoryInterface
         $profile->setName($config['name']);
 
         foreach ($config['presets'] as $presetName => $presetConfig) {
-            $preset = $this->pointPresetFactory->createFromConfig($presetConfig + ['name' => $presetName]);
+            $preset = $this->pointPresetFactory->createFromConfig(array_merge($presetConfig + ['name' => $presetName]));
 
             $profile->addPointPreset($preset);
         }
 
         foreach ($config['connections'] as $connectionName => $connectionConfig) {
-            $connection = $this->connectionFactory->createFromConfig($connectionConfig + ['name' => $connectionName]);
+            $connection = $this->connectionFactory->createFromConfig(array_merge($connectionConfig, ['name' => $connectionName]));
 
             $profile->addConnection($connection);
         }

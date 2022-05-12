@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Yproximite\Bundle\InfluxDbPresetBundle\Point;
 
-/**
- * Class PointPresetFactory
- */
 class PointPresetFactory implements PointPresetFactoryInterface
 {
     public function create(): PointPresetInterface

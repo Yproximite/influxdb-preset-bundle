@@ -1,0 +1,31 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Parameter \\#2 \\$eventName of method Symfony\\\\Contracts\\\\EventDispatcher\\\\EventDispatcherInterface\\:\\:dispatch\\(\\) expects string\\|null, mixed given\\.$#"
+			count: 1
+			path: src/Client/Client.php
+
+		-
+			message: "#^Parameter \\#1 \\$callback of function array_map expects \\(callable\\(mixed\\)\\: mixed\\)\\|null, Closure\\(Yproximite\\\\Bundle\\\\InfluxDbPresetBundle\\\\Point\\\\PointPreset\\)\\: array\\<int, array\\<string, string\\>\\|string\\> given\\.$#"
+			count: 1
+			path: src/DataCollector/ClientRequest.php
+
+		-
+			message: "#^Call to an undefined method Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeDefinition\\:\\:children\\(\\)\\.$#"
+			count: 4
+			path: src/DependencyInjection/Configuration.php
+
+		-
+			message: "#^Parameter \\#1 \\$config of method Yproximite\\\\Bundle\\\\InfluxDbPresetBundle\\\\DependencyInjection\\\\YproximiteInfluxDbPresetExtension\\:\\:registerEvents\\(\\) expects array\\{profiles\\: array\\<string, array\\{presets\\?\\: array\\<string, array\\{measurement\\: string, tags\\: array\\<string, string\\>, fields\\: array\\<string, string\\>\\}\\>\\}\\>\\}, array given\\.$#"
+			count: 1
+			path: src/DependencyInjection/YproximiteInfluxDbPresetExtension.php
+
+		-
+			message: "#^Parameter \\#1 \\$config of method Yproximite\\\\Bundle\\\\InfluxDbPresetBundle\\\\DependencyInjection\\\\YproximiteInfluxDbPresetExtension\\:\\:registerExtensions\\(\\) expects array\\{default_profile_name\\: string, extensions\\: array\\<string, array\\{enabled\\: bool, profile_name\\?\\: string, preset_name\\: string\\}\\>\\}, array given\\.$#"
+			count: 1
+			path: src/DependencyInjection/YproximiteInfluxDbPresetExtension.php
+
+		-
+			message: "#^Parameter \\#1 \\$config of method Yproximite\\\\Bundle\\\\InfluxDbPresetBundle\\\\DependencyInjection\\\\YproximiteInfluxDbPresetExtension\\:\\:registerProfiles\\(\\) expects array\\{profiles\\: array\\<string, array\\{presets\\: array\\<string, array\\{measurement\\: string, tags\\: array\\<string, string\\>, fields\\: array\\<string, string\\>\\}\\>, connections\\: array\\<string, array\\{protocol\\: string, deferred\\: bool\\}\\>\\}\\>\\}, array given\\.$#"
+			count: 1
+			path: src/DependencyInjection/YproximiteInfluxDbPresetExtension.php

@@ -27,7 +27,7 @@ final class InfluxDbPresetDataCollector extends DataCollector
         $this->profilePool = $profilePool;
     }
 
-    public function onClientRequest(ClientRequestEvent $event)
+    public function onClientRequest(ClientRequestEvent $event): void
     {
         $profile = $this->profilePool->getProfileByName($event->getProfileName());
         $preset  = $profile->getPointPresetByName($event->getPresetName());
@@ -35,7 +35,7 @@ final class InfluxDbPresetDataCollector extends DataCollector
         $this->requests[] = new ClientRequest($profile, $preset, $event->getValue(), $event->getDateTime());
     }
 
-    public function collect(Request $request, Response $response, \Throwable $exception = null)
+    public function collect(Request $request, Response $response, \Throwable $exception = null): void
     {
         $this->data = [
             'requests' => $this->requests,
@@ -45,7 +45,7 @@ final class InfluxDbPresetDataCollector extends DataCollector
     /**
      * Resets this data collector to its initial state.
      */
-    public function reset()
+    public function reset(): void
     {
         $this->data = [];
     }
@@ -58,7 +58,7 @@ final class InfluxDbPresetDataCollector extends DataCollector
         return $this->data['requests'];
     }
 
-    public function getName()
+    public function getName(): string
     {
         return 'yproximite.influxdb_preset';
     }

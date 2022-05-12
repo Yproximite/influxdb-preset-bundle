@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Yproximite\Bundle\InfluxDbPresetBundle\Point;
 
-/**
- * Class PointPreset
- */
 class PointPreset implements PointPresetInterface
 {
     /**
@@ -20,12 +17,12 @@ class PointPreset implements PointPresetInterface
     private $measurement;
 
     /**
-     * @var array
+     * @var array<string, string>
      */
     private $tags = [];
 
     /**
-     * @var array
+     * @var array<string, string>
      */
     private $fields = [];
 
