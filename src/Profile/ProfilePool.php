@@ -6,9 +6,6 @@ namespace Yproximite\Bundle\InfluxDbPresetBundle\Profile;
 
 use Yproximite\Bundle\InfluxDbPresetBundle\Exception\ProfileNotFoundException;
 
-/**
- * Class ProfilePool
- */
 class ProfilePool implements ProfilePoolInterface
 {
     /**

@@ -8,23 +8,17 @@ use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-/**
- * Class Configuration
- */
 class Configuration implements ConfigurationInterface
 {
     /**
-     * @var array
+     * @var array<int, string>
      */
     private static $protocols = ['http', 'udp'];
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('yproximite_influx_db_preset');
-        $rootNode    = method_exists($treeBuilder, 'getRootNode') ? $treeBuilder->getRootNode() : $treeBuilder->root('yproximite_influx_db_preset');
+        $rootNode    = $treeBuilder->getRootNode();
 
         $this->addProfilesSection($rootNode);
         $this->addExtensionsSection($rootNode);
@@ -32,7 +26,7 @@ class Configuration implements ConfigurationInterface
         return $treeBuilder;
     }
 
-    private function addProfilesSection(NodeDefinition $rootNode)
+    private function addProfilesSection(NodeDefinition $rootNode): void
     {
         $profiles = $rootNode
             ->children()
@@ -51,7 +45,7 @@ class Configuration implements ConfigurationInterface
         ;
     }
 
-    private function addConnectionsSection(NodeDefinition $rootNode)
+    private function addConnectionsSection(NodeDefinition $rootNode): void
     {
         $rootNode
             ->children()
@@ -64,7 +58,7 @@ class Configuration implements ConfigurationInterface
                                 ->isRequired()
                                 ->validate()
                                     ->ifTrue(function ($value) {
-                                        return !\in_array($value, self::$protocols);
+                                        return !\in_array($value, self::$protocols, true);
                                     })
                                     ->thenInvalid(
                                         sprintf(
@@ -82,7 +76,7 @@ class Configuration implements ConfigurationInterface
         ;
     }
 
-    private function addPresetsSection(NodeDefinition $rootNode)
+    private function addPresetsSection(NodeDefinition $rootNode): void
     {
         $rootNode
             ->children()
@@ -104,7 +98,7 @@ class Configuration implements ConfigurationInterface
         ;
     }
 
-    private function addExtensionsSection(NodeDefinition $rootNode)
+    private function addExtensionsSection(NodeDefinition $rootNode): void
     {
         $rootNode
             ->children()

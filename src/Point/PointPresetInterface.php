@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Yproximite\Bundle\InfluxDbPresetBundle\Point;
 
-/**
- * Interface PointPresetInterface
- */
 interface PointPresetInterface
 {
     public function getName(): string;
@@ -17,11 +14,23 @@ interface PointPresetInterface
 
     public function setMeasurement(string $measurement): self;
 
+    /**
+     * @return array<string, string>
+     */
     public function getTags(): array;
 
+    /**
+     * @param array<string, string> $tags
+     */
     public function setTags(array $tags): self;
 
+    /**
+     * @return array<string, string>
+     */
     public function getFields(): array;
 
+    /**
+     * @param array<string, string> $fields
+     */
     public function setFields(array $fields): self;
 }

@@ -19,9 +19,6 @@ use Yproximite\InfluxDbBundle\Events\DeferredUdpEvent;
 use Yproximite\InfluxDbBundle\Events\HttpEvent;
 use Yproximite\InfluxDbBundle\Events\UdpEvent;
 
-/**
- * Class Client
- */
 class Client implements ClientInterface
 {
     /**
@@ -53,9 +50,9 @@ class Client implements ClientInterface
         string $profileName,
         string $presetName,
         float $value,
-        \DateTimeInterface $dateTime = null
-    ) {
-        if (!$dateTime) {
+        ?\DateTimeInterface $dateTime = null
+    ): void {
+        if (null === $dateTime) {
             $dateTime = new \DateTime();
         }
 
@@ -77,13 +74,12 @@ class Client implements ClientInterface
         $builder
             ->setPreset($preset)
             ->setValue($value)
-            ->setDateTime($dateTime)
-        ;
+            ->setDateTime($dateTime);
 
         return $builder->build();
     }
 
-    private function sendPointUsingConnection(Point $point, ConnectionInterface $connection)
+    private function sendPointUsingConnection(Point $point, ConnectionInterface $connection): void
     {
         $class = $this->getEventClassName($connection);
         $event = new $class([$point], Database::PRECISION_SECONDS, $connection->getName());

@@ -6,9 +6,6 @@ namespace Yproximite\Bundle\InfluxDbPresetBundle\Point;
 
 use InfluxDB\Point;
 
-/**
- * Class PointBuilder
- */
 class PointBuilder implements PointBuilderInterface
 {
     /**
@@ -77,6 +74,11 @@ class PointBuilder implements PointBuilderInterface
         return new Point($measurement, $value, $tags, $fields, $timestamp);
     }
 
+    /**
+     * @param string|array<string> $template
+     *
+     * @return array|string|string[]
+     */
     private function compileTemplate($template)
     {
         if (\is_string($template) && preg_match_all('/<([^>]*)>/', $template, $matches) > 0) {
@@ -93,6 +95,9 @@ class PointBuilder implements PointBuilderInterface
         return $template;
     }
 
+    /**
+     * @return array{ value:float }
+     */
     private function getTemplateParams(): array
     {
         return [

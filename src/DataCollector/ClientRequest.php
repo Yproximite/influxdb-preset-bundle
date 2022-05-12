@@ -11,10 +11,7 @@ use Yproximite\Bundle\InfluxDbPresetBundle\Point\PointPresetInterface;
 use Yproximite\Bundle\InfluxDbPresetBundle\Profile\Profile;
 use Yproximite\Bundle\InfluxDbPresetBundle\Profile\ProfileInterface;
 
-/**
- * Class ClientRequest
- */
-class ClientRequest implements \Serializable
+class ClientRequest
 {
     /**
      * @var ProfileInterface
@@ -68,9 +65,12 @@ class ClientRequest implements \Serializable
         return $this->dateTime;
     }
 
-    public function serialize()
+    /**
+     * @return array<int, int|string|float|\DateTimeInterface|array<mixed>|null>
+     */
+    public function __serialize(): array
     {
-        return serialize([
+        return [
             $this->value,
             $this->dateTime,
             $this->profile->getName(),
@@ -81,12 +81,22 @@ class ClientRequest implements \Serializable
                 return $this->serializePointPreset($pointPreset);
             }, $this->profile->getPointPresets()),
             $this->serializePointPreset($this->pointPreset),
-        ]);
+        ];
     }
 
-    public function unserialize($serialized)
+    /**
+     * @param array{
+     *     0:float,
+     *     1:\DateTimeInterface,
+     *     2:string,
+     *     3:array<string, array{ 0:string, 1:string, 2:bool }>,
+     *     4:array<string, array{ 0:string, 1:array<string,string>, 2:string, 3:array<string,string> }>,
+     *     5:array{ 0:string, 1:array<string,string>, 2:string, 3:array<string,string> }
+     *     } $serialized
+     */
+    public function __unserialize(array $serialized): void
     {
-        list($this->value, $this->dateTime, $profileName, $profileConnections, $profilePointPresets, $pointPreset) = unserialize($serialized);
+        [$this->value, $this->dateTime, $profileName, $profileConnections, $profilePointPresets, $pointPreset] = $serialized;
 
         $this->pointPreset = $this->unserializePointPreset($pointPreset);
 
@@ -97,11 +107,14 @@ class ClientRequest implements \Serializable
             $this->profile->addConnection($this->unserializeConnection($connection));
         }
 
-        foreach ($profilePointPresets as $pointPreset) {
-            $this->profile->addPointPreset($this->unserializePointPreset($pointPreset));
+        foreach ($profilePointPresets as $profilePointPreset) {
+            $this->profile->addPointPreset($this->unserializePointPreset($profilePointPreset));
         }
     }
 
+    /**
+     * @return array<int, string|array<string,string>>
+     */
     protected function serializePointPreset(PointPresetInterface $pointPreset): array
     {
         return [
@@ -112,6 +125,9 @@ class ClientRequest implements \Serializable
         ];
     }
 
+    /**
+     * @param array{ 0:string, 1:array<string,string>, 2:string, 3:array<string,string> } $pointPreset
+     */
     protected function unserializePointPreset(array $pointPreset): PointPresetInterface
     {
         $newPointPreset = new PointPreset();
@@ -124,6 +140,9 @@ class ClientRequest implements \Serializable
         return $newPointPreset;
     }
 
+    /**
+     * @return array<int, string|bool>
+     */
     protected function serializeConnection(ConnectionInterface $connection): array
     {
         return [
@@ -133,6 +152,9 @@ class ClientRequest implements \Serializable
         ];
     }
 
+    /**
+     * @param array{ 0:string, 1:string, 2:bool } $connection
+     */
     protected function unserializeConnection(array $connection): ConnectionInterface
     {
         $newConnection = new Connection();

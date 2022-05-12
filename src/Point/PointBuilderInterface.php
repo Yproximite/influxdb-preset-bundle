@@ -6,9 +6,6 @@ namespace Yproximite\Bundle\InfluxDbPresetBundle\Point;
 
 use InfluxDB\Point;
 
-/**
- * Interface PointBuilderInterface
- */
 interface PointBuilderInterface
 {
     public function getPreset(): PointPresetInterface;

@@ -8,9 +8,6 @@ use Yproximite\Bundle\InfluxDbPresetBundle\Connection\ConnectionInterface;
 use Yproximite\Bundle\InfluxDbPresetBundle\Exception\PresetNotFoundException;
 use Yproximite\Bundle\InfluxDbPresetBundle\Point\PointPresetInterface;
 
-/**
- * Class Profile
- */
 class Profile implements ProfileInterface
 {
     /**

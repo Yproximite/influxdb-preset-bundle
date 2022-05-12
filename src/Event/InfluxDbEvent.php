@@ -23,7 +23,10 @@ final class InfluxDbEvent extends SymfonyEvent
      */
     private $dateTime;
 
-    public function __construct($value, string $profileName = null, \DateTimeInterface $dateTime = null)
+    /**
+     * @param float|int $value
+     */
+    public function __construct($value, ?string $profileName = null, ?\DateTimeInterface $dateTime = null)
     {
         $this->value       = (float) $value;
         $this->profileName = $profileName;
@@ -35,18 +38,12 @@ final class InfluxDbEvent extends SymfonyEvent
         return $this->value;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getProfileName()
+    public function getProfileName(): ?string
     {
         return $this->profileName;
     }
 
-    /**
-     * @return \DateTimeInterface|null
-     */
-    public function getDateTime()
+    public function getDateTime(): ?\DateTimeInterface
     {
         return $this->dateTime;
     }

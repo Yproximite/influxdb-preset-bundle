@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Yproximite\Bundle\InfluxDbPresetBundle\Connection;
 
-/**
- * Interface ConnectionInterface
- */
 interface ConnectionInterface
 {
     public const PROTOCOL_UDP  = 'udp';
